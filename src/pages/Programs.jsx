@@ -1,0 +1,53 @@
+import React from "react";
+
+const Programs = () => {
+  return (
+    <main className="pt-24 px-6 md:px-20">
+
+      <h1 className="text-4xl font-bold text-center mb-16">
+        Our Programs
+      </h1>
+       
+      
+
+
+      <div className="space-y-16">
+
+        <Program
+          title="Education Support"
+          img="https://images.unsplash.com/photo-1503676260728-1c00da094a0b"
+          desc="We support underprivileged children with school supplies,
+          scholarships, mentoring, and access to quality education."
+        />
+
+        <Program
+          title="Healthcare Initiatives"
+          img="https://images.unsplash.com/photo-1584515933487-779824d29309"
+          desc="Our healthcare camps provide free medical checkups, medicines,
+          and health awareness programs in rural areas."
+        />
+
+        <Program
+          title="Skill Development"
+          img="https://images.unsplash.com/photo-1542744173-8e7e53415bb0"
+          desc="We train youth and women in vocational skills to help them
+          become financially independent."
+        />
+
+      </div>
+
+    </main>
+  );
+};
+
+const Program = ({ title, img, desc }) => (
+  <div className="grid md:grid-cols-2 gap-10 items-center">
+    <img src={img} className="rounded-xl shadow-lg" alt={title} />
+    <div>
+      <h2 className="text-3xl font-bold mb-4">{title}</h2>
+      <p className="text-gray-600 leading-relaxed">{desc}</p>
+    </div>
+  </div>
+);
+
+export default Programs;
