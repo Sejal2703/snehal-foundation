@@ -1,11 +1,11 @@
 
-import React, { useState} from "react";
-import { useNavigate } from "react-router-dom";
+import React from "react";
+import { useNavigate, Link } from "react-router-dom";
 import heroImg from "../assets/WhatsApp Image 2026-01-20 at 2.41.45 PM.jpeg";
 
 const Home = () => {
   const navigate = useNavigate();
-  const [showVolunteerForm, setShowVolunteerForm] = useState(false);
+  
 
   return (
     <main className="pt-2">
@@ -107,6 +107,7 @@ const Home = () => {
         <div className="grid md:grid-cols-3 gap-10">
 
           {/* Program 1 */}
+          <Link to="/programs#education">
           <div className="p-8 rounded-2xl shadow-xl hover:shadow-2xl hover:scale-105 transition duration-300">
 
             <img
@@ -124,9 +125,11 @@ const Home = () => {
             </p>
 
           </div>
+          </Link>
 
 
           {/* Program 2 */}
+          <Link to="/programs#healthcare">
           <div className="p-8 rounded-2xl shadow-xl hover:shadow-2xl hover:scale-105 transition duration-300">
 
             <img
@@ -144,9 +147,11 @@ const Home = () => {
             </p>
 
           </div>
+          </Link>
 
 
           {/* Program 3 */}
+          <Link to="/programs#skills">
           <div className="p-8 rounded-2xl shadow-xl hover:shadow-2xl hover:scale-105 transition duration-300">
 
             <img
@@ -164,6 +169,7 @@ const Home = () => {
             </p>
 
           </div>
+          </Link>
 
         </div>
       </section>
@@ -220,7 +226,7 @@ const Home = () => {
   </p>
 
   <button
-    onClick={() => setShowVolunteerForm(true)}
+    onClick={() => navigate("/volunteer")}
     className="bg-black text-yellow-400 px-10 py-4 rounded-full font-semibold hover:scale-105 transition duration-300"
   >
     Join as a Volunteer
@@ -249,134 +255,7 @@ const Home = () => {
 
       </section>
 
-      {/* ================= VOLUNTEER FORM MODAL ================= */}
-{showVolunteerForm && (
-  <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 overflow-auto">
-
-    <div className="bg-white w-full max-w-3xl p-8 rounded-2xl shadow-xl relative max-h-[90vh] overflow-y-auto">
-
-      {/* Close button */}
-      <button
-        onClick={() => setShowVolunteerForm(false)}
-        className="absolute top-4 right-4 text-xl font-bold"
-      >
-        ✕
-      </button>
-
-      <h2 className="text-2xl font-bold mb-6 text-center">
-        SNEHAL FOUNDATION – VOLUNTEER REGISTRATION FORM
-      </h2>
-
-      <form className="space-y-4">
-
-        {/* Personal Info */}
-              <div>
-                <h3 className="font-bold mb-2">1. Personal Information</h3>
-
-                <input className="input" placeholder="Full Name (as per Aadhaar)" />
-                <input className="input" placeholder="Father/Mother/Spouse Name" />
-                <input className="input" type="date" />
-
-                <select className="input">
-                  <option>Select Gender</option>
-                  <option>Male</option>
-                  <option>Female</option>
-                  <option>Other</option>
-                </select>
-
-                <input className="input" placeholder="Nationality" />
-              </div>
-
-
-              {/* Contact */}
-              <div>
-                <h3 className="font-bold mb-2">2. Contact Details</h3>
-
-                <input className="input" placeholder="Mobile Number" />
-                <input className="input" placeholder="Alternate Mobile" />
-                <input className="input" placeholder="Email" type="email" />
-              </div>
-
-
-              {/* Address */}
-              <div>
-                <h3 className="font-bold mb-2">3. Address</h3>
-
-                <input className="input" placeholder="Full Address" />
-                <input className="input" placeholder="City/District" />
-                <input className="input" placeholder="State" />
-                <input className="input" placeholder="PIN Code" />
-              </div>
-
-
-              {/* Aadhaar */}
-              <div>
-                <h3 className="font-bold mb-2">4. Aadhaar Verification</h3>
-
-                <input className="input" placeholder="Aadhaar Number" />
-                <input className="input" type="file" />
-              </div>
-
-
-              {/* Education */}
-              <div>
-                <h3 className="font-bold mb-2">5. Education & Occupation</h3>
-
-                <input className="input" placeholder="Qualification" />
-                <input className="input" placeholder="Occupation" />
-                <input className="input" placeholder="Organization / College" />
-              </div>
-
-
-              {/* Skills */}
-              <div>
-                <h3 className="font-bold mb-2">6. Skills & Interests</h3>
-
-                <textarea className="input" placeholder="Your Skills"></textarea>
-              </div>
-
-
-              {/* Volunteering */}
-              <div>
-                <h3 className="font-bold mb-2">7. Volunteering Details</h3>
-
-                <textarea className="input" placeholder="Reason to join"></textarea>
-                <input className="input" placeholder="Available Days" />
-                <input className="input" placeholder="Available Time" />
-              </div>
-
-
-              {/* Emergency */}
-              <div>
-                <h3 className="font-bold mb-2">8. Emergency Contact</h3>
-
-                <input className="input" placeholder="Name" />
-                <input className="input" placeholder="Relation" />
-                <input className="input" placeholder="Mobile" />
-              </div>
-
-
-              {/* Declaration */}
-              <label className="flex gap-2">
-                <input type="checkbox" />
-                I confirm that the above information is true and correct.
-              </label>
-
-
-              {/* Submit */}
-              <button
-                type="submit"
-                className="bg-yellow-400 w-full py-3 rounded-lg font-bold hover:bg-yellow-500"
-              >
-                Submit Form
-              </button>
-
-            </form>
-
-          </div>
-
-        </div>
-      )}
+      
 
     </main>
   );
