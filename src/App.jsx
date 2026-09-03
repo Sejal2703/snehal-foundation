@@ -1,12 +1,15 @@
+
 import {
   BrowserRouter as Router,
   Routes,
   Route,
   useLocation,
+  Navigate,
 } from "react-router-dom";
 
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
+import ScrollToTop from "./components/ScrollToTop";
 
 import Home from "./pages/Home";
 import About from "./pages/About";
@@ -14,12 +17,12 @@ import Programs from "./pages/Programs";
 import Contact from "./pages/Contact";
 import DonateNow from "./pages/DonateNow";
 import Volunteer from "./pages/Volunteer";
+import OurTeam from "./pages/OurTeam";
 
 import AdminVolunteers from "./pages/AdminVolunteers";
 import AdminLogin from "./pages/AdminLogin";
 import AdminDashboard from "./pages/AdminDashboard";
 import ProtectedRoute from "./pages/ProtectedRoute";
-
 
 // =====================================================
 // APP CONTENT
@@ -33,24 +36,25 @@ function AppContent() {
 
   return (
     <>
-      {/* =========================================
+      {/* Automatically scroll to top whenever the route changes */}
+      <ScrollToTop />
+
+      {/* =================================================
           PUBLIC NAVBAR
-          ========================================= */}
+      ================================================= */}
 
       {!isAdminPage && <Navbar />}
 
-
-      {/* =========================================
+      {/* =================================================
           MAIN CONTENT
-          ========================================= */}
+      ================================================= */}
 
-      <main className={isAdminPage ? "" : "pt-20"}>
-
+      <main className={isAdminPage ? "" : "pt-0 overflow-x-hidden"}>
         <Routes>
 
-          {/* =====================================
+          {/* =================================================
               PUBLIC ROUTES
-              ===================================== */}
+          ================================================= */}
 
           <Route
             path="/"
@@ -62,6 +66,13 @@ function AppContent() {
             element={<About />}
           />
 
+          {/* Main Programs Page */}
+          <Route
+            path="/programs"
+            element={<Programs />}
+          />
+
+          {/* Individual Program Routes */}
           <Route
             path="/programs/education"
             element={<Programs />}
@@ -92,46 +103,60 @@ function AppContent() {
             element={<Volunteer />}
           />
 
+          {/* Our Team */}
+          <Route
+            path="/our-team"
+            element={<OurTeam />}
+          />
 
-          {/* =====================================
+          {/* =================================================
               ADMIN ROUTES
-              ===================================== */}
+          ================================================= */}
 
           <Route
             path="/admin"
+            element={
+              <Navigate
+                to="/admin/login"
+                replace
+              />
+            }
+          />
+
+          <Route
+            path="/admin/login"
             element={<AdminLogin />}
           />
 
           <Route
             path="/admin/dashboard"
-           element={
-    <ProtectedRoute>
-      <AdminDashboard />
-    </ProtectedRoute>}
+            element={
+              <ProtectedRoute>
+                <AdminDashboard />
+              </ProtectedRoute>
+            }
           />
 
           <Route
             path="/admin/volunteers"
-           element={
-    <ProtectedRoute>
-      <AdminVolunteers />
-    </ProtectedRoute>}
+            element={
+              <ProtectedRoute>
+                <AdminVolunteers />
+              </ProtectedRoute>
+            }
           />
 
         </Routes>
-
       </main>
 
-
-      {/* =========================================
+      {/* =================================================
           PUBLIC FOOTER
-          ========================================= */}
+      ================================================= */}
 
       {!isAdminPage && <Footer />}
     </>
   );
 }
-
 
 // =====================================================
 // APP
@@ -144,3 +169,4 @@ export default function App() {
     </Router>
   );
 }
+
