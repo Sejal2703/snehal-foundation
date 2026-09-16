@@ -1818,272 +1818,400 @@ xl:right-[5px]
 
 
       {/* =====================================================
-          PROGRAMS
-      ===================================================== */}
-      <section className="relative w-full overflow-hidden bg-slate-50 py-20 md:py-24">
-
-        <div className="absolute -top-32 left-[-120px] w-96 h-96 rounded-full bg-blue-100/50 blur-3xl pointer-events-none" />
-
-        <div className="absolute -bottom-40 right-[-120px] w-96 h-96 rounded-full bg-blue-100/40 blur-3xl pointer-events-none" />
-
-
-        <div className="relative max-w-7xl mx-auto px-6 md:px-10">
-
-          <div className="text-center max-w-3xl mx-auto">
-
-            <p className="text-blue-600 font-semibold uppercase tracking-widest text-sm">
-              What We Do
-            </p>
-
-
-            <h2 className="mt-3 text-3xl sm:text-4xl md:text-5xl font-bold text-slate-900 leading-tight">
-              Our Programs
-            </h2>
-
-
-            <p className="mt-5 text-slate-600 leading-7">
-              Our programs are designed to create practical, sustainable
-              and meaningful opportunities that help individuals and
-              communities move towards safer and more empowered lives.
-            </p>
-
-          </div>
-
-
-          <div className="mt-12 grid md:grid-cols-3 gap-7">
-
-            {/* Education */}
-            <div
-              className="
-                group
-                premium-card
-                relative
-                bg-white
-                rounded-[2rem]
-                overflow-hidden
-                shadow-sm
-                border
-                border-slate-200
-                transition-all
-                duration-500
-                hover:-translate-y-2
-                hover:shadow-[0_25px_60px_rgba(15,23,42,.15)]
-                hover:border-blue-100
-              "
-            >
-
-              <div className="absolute top-0 left-0 z-20 h-1 w-0 bg-blue-600 transition-all duration-500 group-hover:w-full" />
-
-              <div className="relative h-64 overflow-hidden">
-
-                <img
-                  src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=1200&q=80"
-                  alt="Education program"
-                  className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
-                />
-
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/60 via-transparent to-transparent opacity-70" />
-
-                <div className="absolute top-5 left-5 h-11 w-11 rounded-xl bg-white/90 backdrop-blur-sm flex items-center justify-center text-blue-700 font-bold shadow-lg">
-                  01
-                </div>
-
-              </div>
-
-
-              <div className="relative z-10 p-7">
-
-                <h3 className="text-2xl font-bold text-slate-900">
-                  Education
-                </h3>
-
-
-                <p className="mt-3 text-slate-600 leading-7">
-                  Promoting access to education and helping children build
-                  the confidence and skills they need for a brighter future.
-                </p>
-
-
-                <Link
-                  to="/programs/education"
-                  className="group/link inline-flex items-center gap-2 mt-6 font-semibold text-blue-600 hover:text-blue-800"
-                >
-
-                  Learn More
-
-                  <span className="text-lg transition-transform duration-300 group-hover/link:translate-x-1">
-                    →
-                  </span>
-
-                </Link>
-
-              </div>
-
-            </div>
-
-
-            {/* Healthcare */}
-            <div
-              className="
-                group
-                premium-card
-                relative
-                bg-white
-                rounded-[2rem]
-                overflow-hidden
-                shadow-sm
-                border
-                border-slate-200
-                transition-all
-                duration-500
-                hover:-translate-y-2
-                hover:shadow-[0_25px_60px_rgba(15,23,42,.15)]
-                hover:border-blue-100
-              "
-            >
-
-              <div className="absolute top-0 left-0 z-20 h-1 w-0 bg-blue-600 transition-all duration-500 group-hover:w-full" />
-
-              <div className="relative h-64 overflow-hidden">
-
-                <img
-                  src="https://images.unsplash.com/photo-1580281657527-47f249e8f3f6?auto=format&fit=crop&w=1200&q=80"
-                  alt="Healthcare program"
-                  className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
-                />
-
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/60 via-transparent to-transparent opacity-70" />
-
-                <div className="absolute top-5 left-5 h-11 w-11 rounded-xl bg-white/90 backdrop-blur-sm flex items-center justify-center text-blue-700 font-bold shadow-lg">
-                  02
-                </div>
-
-              </div>
-
-
-              <div className="relative z-10 p-7">
-
-                <h3 className="text-2xl font-bold text-slate-900">
-                  Healthcare
-                </h3>
-
-
-                <p className="mt-3 text-slate-600 leading-7">
-                  Supporting healthcare awareness, medical assistance and
-                  access to essential services.
-                </p>
-
-
-                <Link
-                  to="/programs/healthcare"
-                  className="group/link inline-flex items-center gap-2 mt-6 font-semibold text-blue-600 hover:text-blue-800"
-                >
-
-                  Learn More
-
-                  <span className="text-lg transition-transform duration-300 group-hover/link:translate-x-1">
-                    →
-                  </span>
-
-                </Link>
-
-              </div>
-
-            </div>
-
-
-            {/* Skill Development */}
-            <div
-              className="
-                group
-                premium-card
-                relative
-                bg-white
-                rounded-[2rem]
-                overflow-hidden
-                shadow-sm
-                border
-                border-slate-200
-                transition-all
-                duration-500
-                hover:-translate-y-2
-                hover:shadow-[0_25px_60px_rgba(15,23,42,.15)]
-                hover:border-blue-100
-              "
-            >
-
-              <div className="absolute top-0 left-0 z-20 h-1 w-0 bg-blue-600 transition-all duration-500 group-hover:w-full" />
-
-              <div className="relative h-64 overflow-hidden">
-
-                <img
-                  src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&w=1200&q=80"
-                  alt="Skill development program"
-                  className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
-                />
-
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/60 via-transparent to-transparent opacity-70" />
-
-                <div className="absolute top-5 left-5 h-11 w-11 rounded-xl bg-white/90 backdrop-blur-sm flex items-center justify-center text-blue-700 font-bold shadow-lg">
-                  03
-                </div>
-
-              </div>
-
-
-              <div className="relative z-10 p-7">
-
-                <h3 className="text-2xl font-bold text-slate-900">
-                  Skill Development
-                </h3>
-
-
-                <p className="mt-3 text-slate-600 leading-7">
-                  Building practical skills and livelihood opportunities
-                  that help individuals move towards greater independence.
-                </p>
-
-
-                <Link
-                  to="/programs/skill-development"
-                  className="group/link inline-flex items-center gap-2 mt-6 font-semibold text-blue-600 hover:text-blue-800"
-                >
-
-                  Learn More
-
-                  <span className="text-lg transition-transform duration-300 group-hover/link:translate-x-1">
-                    →
-                  </span>
-
-                </Link>
-
-              </div>
-
-            </div>
-
-          </div>
-
-
-          <div className="text-center mt-11">
-
-            <Link
-              to="/programs"
-              className="group inline-flex items-center gap-2 rounded-full bg-blue-600 hover:bg-blue-700 px-7 py-3.5 font-semibold text-white transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
-            >
-
-              Explore All Programs
-
-              <span className="text-lg transition-transform duration-300 group-hover:translate-x-1">
-                →
-              </span>
-
-            </Link>
-
-          </div>
+    PROGRAMS
+===================================================== */}
+<section className="relative w-full overflow-hidden bg-slate-50 py-20 md:py-24">
+
+  <div className="absolute -top-32 left-[-120px] w-96 h-96 rounded-full bg-blue-100/50 blur-3xl pointer-events-none" />
+
+  <div className="absolute -bottom-40 right-[-120px] w-96 h-96 rounded-full bg-blue-100/40 blur-3xl pointer-events-none" />
+
+
+  <div className="relative max-w-7xl mx-auto px-6 md:px-10">
+
+    {/* ================= SECTION HEADING ================= */}
+    <div className="text-center max-w-3xl mx-auto">
+
+      <p className="text-blue-600 font-semibold uppercase tracking-widest text-sm">
+        What We Do
+      </p>
+
+      <h2 className="mt-3 text-3xl sm:text-4xl md:text-5xl font-bold text-slate-900 leading-tight">
+        Our Programs
+      </h2>
+
+      <p className="mt-5 text-slate-600 leading-7">
+        Our programs are designed to create practical, sustainable
+        and meaningful opportunities that help individuals and
+        communities move towards safer and more empowered lives.
+      </p>
+
+    </div>
+
+
+    {/* ================= PROGRAM CARDS ================= */}
+    <div className="mt-12 grid md:grid-cols-3 gap-7">
+
+
+      {/* =================================================
+          EDUCATION
+      ================================================= */}
+      <div
+        className="
+          group
+          premium-card
+          relative
+          bg-white
+          rounded-[2rem]
+          overflow-hidden
+          shadow-sm
+          border
+          border-slate-200
+          transition-all
+          duration-500
+          hover:-translate-y-2
+          hover:shadow-[0_25px_60px_rgba(15,23,42,.15)]
+          hover:border-blue-100
+        "
+      >
+
+        {/* TOP ACCENT */}
+        <div className="absolute top-0 left-0 z-20 h-1 w-0 bg-blue-600 transition-all duration-500 group-hover:w-full" />
+
+{/* ================= VISUAL ================= */}
+<div className="relative h-64 overflow-hidden">
+
+  <img
+    src="https://images.unsplash.com/photo-1542810634-71277d95dcbb?auto=format&fit=crop&w=1200&q=90"
+    alt="Children participating in education"
+    className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
+  />
+
+  {/* Dark gradient */}
+  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/60 via-transparent to-transparent opacity-70" />
+
+  {/* Number */}
+  <div
+    className="
+      absolute
+      top-5
+      left-5
+      h-11
+      w-11
+      rounded-xl
+      bg-white/90
+      backdrop-blur-sm
+      flex
+      items-center
+      justify-center
+      text-blue-700
+      font-bold
+      shadow-lg
+    "
+  >
+    01
+  </div>
+
+</div>
+        
+
+
+        {/* ================= CONTENT ================= */}
+        <div className="relative z-10 p-7">
+
+          <h3 className="text-2xl font-bold text-slate-900">
+            Education
+          </h3>
+
+
+          <p className="mt-3 text-slate-600 leading-7">
+            Promoting access to education and helping children build
+            the confidence and skills they need for a brighter future.
+          </p>
+
+
+          <Link
+            to="/programs/education"
+            className="
+              group/link
+              inline-flex
+              items-center
+              gap-2
+              mt-6
+              font-semibold
+              text-blue-600
+              hover:text-blue-800
+            "
+          >
+            Learn More
+
+            <span className="text-lg transition-transform duration-300 group-hover/link:translate-x-1">
+              →
+            </span>
+
+          </Link>
 
         </div>
 
-      </section>
+      </div>
+
+
+
+      {/* =================================================
+          HEALTHCARE
+      ================================================= */}
+      <div
+        className="
+          group
+          premium-card
+          relative
+          bg-white
+          rounded-[2rem]
+          overflow-hidden
+          shadow-sm
+          border
+          border-slate-200
+          transition-all
+          duration-500
+          hover:-translate-y-2
+          hover:shadow-[0_25px_60px_rgba(15,23,42,.15)]
+          hover:border-blue-100
+        "
+      >
+
+        {/* TOP ACCENT */}
+        <div className="absolute top-0 left-0 z-20 h-1 w-0 bg-blue-600 transition-all duration-500 group-hover:w-full" />
+
+
+        {/* ================= VISUAL ================= */}
+<div className="relative h-64 overflow-hidden">
+
+  <img
+    src="https://images.unsplash.com/photo-1538108149393-fbbd81895907?auto=format&fit=crop&w=1200&q=90"
+    alt="Healthcare support and community well-being"
+    className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
+  />
+
+  {/* Dark gradient */}
+  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/60 via-transparent to-transparent opacity-70" />
+
+  {/* Number */}
+  <div
+    className="
+      absolute
+      top-5
+      left-5
+      h-11
+      w-11
+      rounded-xl
+      bg-white/90
+      backdrop-blur-sm
+      flex
+      items-center
+      justify-center
+      text-blue-700
+      font-bold
+      shadow-lg
+    "
+  >
+    02
+  </div>
+
+</div>
+
+
+        {/* ================= CONTENT ================= */}
+        <div className="relative z-10 p-7">
+
+          <h3 className="text-2xl font-bold text-slate-900">
+            Healthcare
+          </h3>
+
+
+          <p className="mt-3 text-slate-600 leading-7">
+            Supporting healthcare awareness, medical assistance and
+            access to essential services.
+          </p>
+
+
+          <Link
+            to="/programs/healthcare"
+            className="
+              group/link
+              inline-flex
+              items-center
+              gap-2
+              mt-6
+              font-semibold
+              text-blue-600
+              hover:text-blue-800
+            "
+          >
+            Learn More
+
+            <span className="text-lg transition-transform duration-300 group-hover/link:translate-x-1">
+              →
+            </span>
+
+          </Link>
+
+        </div>
+
+      </div>
+
+
+
+      {/* =================================================
+          SKILL DEVELOPMENT
+      ================================================= */}
+      <div
+        className="
+          group
+          premium-card
+          relative
+          bg-white
+          rounded-[2rem]
+          overflow-hidden
+          shadow-sm
+          border
+          border-slate-200
+          transition-all
+          duration-500
+          hover:-translate-y-2
+          hover:shadow-[0_25px_60px_rgba(15,23,42,.15)]
+          hover:border-blue-100
+        "
+      >
+
+        {/* TOP ACCENT */}
+        <div className="absolute top-0 left-0 z-20 h-1 w-0 bg-blue-600 transition-all duration-500 group-hover:w-full" />
+
+
+        {/* ================= VISUAL ================= */}
+<div className="relative h-64 overflow-hidden">
+
+  <img
+    src="https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=1600&q=90"
+    alt="Skill development and livelihood training"
+    className="
+      w-full
+      h-full
+      object-cover
+      object-center
+      transition-transform
+      duration-700
+      ease-out
+      group-hover:scale-110
+    "
+  />
+
+  {/* Dark gradient */}
+  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/60 via-transparent to-transparent opacity-70" />
+
+  {/* Number */}
+  <div
+    className="
+      absolute
+      top-5
+      left-5
+      h-11
+      w-11
+      rounded-xl
+      bg-white/90
+      backdrop-blur-sm
+      flex
+      items-center
+      justify-center
+      text-blue-700
+      font-bold
+      shadow-lg
+    "
+  >
+    03
+  </div>
+
+</div>
+
+
+        {/* ================= CONTENT ================= */}
+        <div className="relative z-10 p-7">
+
+          <h3 className="text-2xl font-bold text-slate-900">
+            Skill Development
+          </h3>
+
+
+          <p className="mt-3 text-slate-600 leading-7">
+            Building practical skills and livelihood opportunities
+            that help individuals move towards greater independence.
+          </p>
+
+
+          <Link
+            to="/programs/skill-development"
+            className="
+              group/link
+              inline-flex
+              items-center
+              gap-2
+              mt-6
+              font-semibold
+              text-blue-600
+              hover:text-blue-800
+            "
+          >
+            Learn More
+
+            <span className="text-lg transition-transform duration-300 group-hover/link:translate-x-1">
+              →
+            </span>
+
+          </Link>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    {/* ================= EXPLORE BUTTON ================= */}
+    <div className="text-center mt-11">
+
+      <Link
+        to="/programs"
+        className="
+          group
+          inline-flex
+          items-center
+          gap-2
+          rounded-full
+          bg-blue-600
+          hover:bg-blue-700
+          px-7
+          py-3.5
+          font-semibold
+          text-white
+          transition-all
+          duration-300
+          hover:-translate-y-1
+          hover:shadow-xl
+        "
+      >
+
+        Explore All Programs
+
+        <span className="text-lg transition-transform duration-300 group-hover:translate-x-1">
+          →
+        </span>
+
+      </Link>
+
+    </div>
+
+  </div>
+
+</section>
 
 
       {/* =====================================================
