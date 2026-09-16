@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 
 const VolunteerForm = ({ onSuccess }) => {
@@ -21,9 +22,6 @@ const VolunteerForm = ({ onSuccess }) => {
     state: "",
     pinCode: "",
 
-    aadhaarNumber: "",
-    aadhaarFile: null,
-
     qualification: "",
     occupation: "",
     organization: "",
@@ -44,16 +42,11 @@ const VolunteerForm = ({ onSuccess }) => {
   // ================= HANDLE INPUT =================
 
   const handleChange = (e) => {
-    const { name, value, type, checked, files } = e.target;
+    const { name, value, type, checked } = e.target;
 
     setFormData((prev) => ({
       ...prev,
-      [name]:
-        type === "checkbox"
-          ? checked
-          : type === "file"
-          ? files[0]
-          : value,
+      [name]: type === "checkbox" ? checked : value,
     }));
 
     // Remove error when user starts correcting the form
@@ -91,15 +84,14 @@ const VolunteerForm = ({ onSuccess }) => {
 
     try {
       /*
-       * IMPORTANT:
-       * This sends the volunteer information to your Express backend.
+       * Sends volunteer information to your Express backend.
        *
-       * Your backend route should be:
+       * Backend route:
        * POST http://localhost:5000/api/volunteer
        */
 
       const response = await fetch(
-        "http://localhost:5000/api/volunteer",
+  `${import.meta.env.VITE_API_URL}/api/volunteer`,
         {
           method: "POST",
           headers: {
@@ -120,8 +112,6 @@ const VolunteerForm = ({ onSuccess }) => {
             city: formData.city,
             state: formData.state,
             pinCode: formData.pinCode,
-
-            aadhaarNumber: formData.aadhaarNumber,
 
             qualification: formData.qualification,
             occupation: formData.occupation,
@@ -170,9 +160,6 @@ const VolunteerForm = ({ onSuccess }) => {
         state: "",
         pinCode: "",
 
-        aadhaarNumber: "",
-        aadhaarFile: null,
-
         qualification: "",
         occupation: "",
         organization: "",
@@ -190,14 +177,13 @@ const VolunteerForm = ({ onSuccess }) => {
         declaration: false,
       });
 
-      // Reset file input
+      // Reset HTML form
       e.target.reset();
     } catch (err) {
       console.error("Volunteer form error:", err);
 
       setError(
-        err.message ||
-          "Something went wrong. Please try again later."
+        err.message || "Something went wrong. Please try again later."
       );
     } finally {
       setLoading(false);
@@ -210,7 +196,7 @@ const VolunteerForm = ({ onSuccess }) => {
 
       <div className="max-w-4xl mx-auto bg-white rounded-2xl shadow-xl p-6 md:p-10">
 
-        {/* FORM HEADER */}
+        {/* ================= FORM HEADER ================= */}
 
         <div className="text-center mb-10">
 
@@ -222,7 +208,7 @@ const VolunteerForm = ({ onSuccess }) => {
             Volunteer Registration Form
           </p>
 
-          <div className="h-1 w-20 bg-yellow-400 mx-auto mt-4 rounded"></div>
+          <div className="h-1 w-20 bg-blue-600 mx-auto mt-4 rounded"></div>
 
           <p className="text-gray-500 mt-4">
             Join us in creating a safer, stronger and more compassionate
@@ -231,8 +217,7 @@ const VolunteerForm = ({ onSuccess }) => {
 
         </div>
 
-
-        {/* ERROR MESSAGE */}
+        {/* ================= ERROR MESSAGE ================= */}
 
         {error && (
           <div className="mb-6 p-4 rounded-lg bg-red-50 border border-red-200 text-red-700">
@@ -246,14 +231,16 @@ const VolunteerForm = ({ onSuccess }) => {
           </div>
         )}
 
-
         <form onSubmit={handleSubmit} className="space-y-10">
 
           {/* ================= 1. PERSONAL INFORMATION ================= */}
 
           <section>
 
-            <SectionTitle number="1" title="Personal Information" />
+            <SectionTitle
+              number="1"
+              title="Personal Information"
+            />
 
             <div className="grid md:grid-cols-2 gap-5">
 
@@ -262,7 +249,7 @@ const VolunteerForm = ({ onSuccess }) => {
                 name="fullName"
                 value={formData.fullName}
                 onChange={handleChange}
-                placeholder="Full Name (as per Aadhaar)"
+                placeholder="Full Name"
                 required
               />
 
@@ -288,6 +275,9 @@ const VolunteerForm = ({ onSuccess }) => {
 
                 <label className="block text-sm font-semibold text-gray-700 mb-2">
                   Gender
+                  <span className="text-red-500 ml-1">
+                    *
+                  </span>
                 </label>
 
                 <select
@@ -320,7 +310,6 @@ const VolunteerForm = ({ onSuccess }) => {
 
               </div>
 
-
               <Input
                 label="Nationality"
                 name="nationality"
@@ -334,12 +323,14 @@ const VolunteerForm = ({ onSuccess }) => {
 
           </section>
 
-
           {/* ================= 2. CONTACT DETAILS ================= */}
 
           <section>
 
-            <SectionTitle number="2" title="Contact Details" />
+            <SectionTitle
+              number="2"
+              title="Contact Details"
+            />
 
             <div className="grid md:grid-cols-2 gap-5">
 
@@ -350,7 +341,8 @@ const VolunteerForm = ({ onSuccess }) => {
                 value={formData.mobile}
                 onChange={handleChange}
                 placeholder="10-digit mobile number"
-                pattern="[0-9]{10}"
+                pattern="[6-9][0-9]{9}"
+                maxLength="10"
                 required
               />
 
@@ -361,7 +353,8 @@ const VolunteerForm = ({ onSuccess }) => {
                 value={formData.alternateMobile}
                 onChange={handleChange}
                 placeholder="Alternate mobile number"
-                pattern="[0-9]{10}"
+                pattern="[6-9][0-9]{9}"
+                maxLength="10"
               />
 
               <Input
@@ -378,12 +371,14 @@ const VolunteerForm = ({ onSuccess }) => {
 
           </section>
 
-
           {/* ================= 3. ADDRESS ================= */}
 
           <section>
 
-            <SectionTitle number="3" title="Address" />
+            <SectionTitle
+              number="3"
+              title="Address"
+            />
 
             <div className="space-y-5">
 
@@ -421,8 +416,9 @@ const VolunteerForm = ({ onSuccess }) => {
                   name="pinCode"
                   value={formData.pinCode}
                   onChange={handleChange}
-                  placeholder="PIN Code"
+                  placeholder="6-digit PIN Code"
                   pattern="[0-9]{6}"
+                  maxLength="6"
                   required
                 />
 
@@ -432,65 +428,12 @@ const VolunteerForm = ({ onSuccess }) => {
 
           </section>
 
-
-          {/* ================= 4. AADHAAR ================= */}
+          {/* ================= 4. EDUCATION ================= */}
 
           <section>
 
             <SectionTitle
               number="4"
-              title="Aadhaar Verification"
-            />
-
-            <div className="grid md:grid-cols-2 gap-5">
-
-              <Input
-                label="Aadhaar Number"
-                name="aadhaarNumber"
-                value={formData.aadhaarNumber}
-                onChange={handleChange}
-                placeholder="12-digit Aadhaar number"
-                pattern="[0-9]{12}"
-                maxLength="12"
-                required
-              />
-
-              <div>
-
-                <label className="block text-sm font-semibold text-gray-700 mb-2">
-                  Aadhaar Document
-                </label>
-
-                <input
-                  type="file"
-                  name="aadhaarFile"
-                  accept=".jpg,.jpeg,.png,.pdf"
-                  onChange={handleChange}
-                  className="w-full px-4 py-3 border border-gray-300
-                  rounded-lg bg-white
-                  file:mr-4 file:py-2 file:px-4
-                  file:rounded-full file:border-0
-                  file:bg-blue-50 file:text-blue-700
-                  hover:file:bg-blue-100"
-                />
-
-                <p className="text-xs text-gray-500 mt-2">
-                  JPG, PNG or PDF
-                </p>
-
-              </div>
-
-            </div>
-
-          </section>
-
-
-          {/* ================= 5. EDUCATION ================= */}
-
-          <section>
-
-            <SectionTitle
-              number="5"
               title="Education & Occupation"
             />
 
@@ -525,13 +468,12 @@ const VolunteerForm = ({ onSuccess }) => {
 
           </section>
 
-
-          {/* ================= 6. SKILLS ================= */}
+          {/* ================= 5. SKILLS ================= */}
 
           <section>
 
             <SectionTitle
-              number="6"
+              number="5"
               title="Skills & Interests"
             />
 
@@ -546,13 +488,12 @@ const VolunteerForm = ({ onSuccess }) => {
 
           </section>
 
-
-          {/* ================= 7. VOLUNTEERING ================= */}
+          {/* ================= 6. VOLUNTEERING ================= */}
 
           <section>
 
             <SectionTitle
-              number="7"
+              number="6"
               title="Volunteering Details"
             />
 
@@ -593,13 +534,12 @@ const VolunteerForm = ({ onSuccess }) => {
 
           </section>
 
-
-          {/* ================= 8. EMERGENCY ================= */}
+          {/* ================= 7. EMERGENCY ================= */}
 
           <section>
 
             <SectionTitle
-              number="8"
+              number="7"
               title="Emergency Contact"
             />
 
@@ -629,15 +569,15 @@ const VolunteerForm = ({ onSuccess }) => {
                 type="tel"
                 value={formData.emergencyMobile}
                 onChange={handleChange}
-                placeholder="Mobile number"
-                pattern="[0-9]{10}"
+                placeholder="10-digit mobile number"
+                pattern="[6-9][0-9]{9}"
+                maxLength="10"
                 required
               />
 
             </div>
 
           </section>
-
 
           {/* ================= DECLARATION ================= */}
 
@@ -666,7 +606,6 @@ const VolunteerForm = ({ onSuccess }) => {
 
           </section>
 
-
           {/* ================= SUBMIT ================= */}
 
           <button
@@ -677,7 +616,7 @@ const VolunteerForm = ({ onSuccess }) => {
             ${
               loading
                 ? "bg-gray-400 cursor-not-allowed"
-                : "bg-yellow-400 hover:bg-yellow-500 hover:shadow-lg cursor-pointer"
+                : "bg-blue-600 hover:bg-blue-700 hover:shadow-lg cursor-pointer"
             }`}
           >
 
@@ -700,7 +639,6 @@ const VolunteerForm = ({ onSuccess }) => {
 
       </div>
 
-
       {/* ================= SUCCESS POPUP ================= */}
 
       {success && (
@@ -718,18 +656,15 @@ const VolunteerForm = ({ onSuccess }) => {
 
             </div>
 
-
             <h2 className="text-2xl font-bold text-gray-800 mb-3">
               Registration Successful!
             </h2>
-
 
             <p className="text-gray-600 leading-relaxed mb-6">
               Thank you for registering as a volunteer with
               Snehal Foundation. Your registration has been
               received successfully.
             </p>
-
 
             <button
               onClick={closeSuccess}
@@ -861,4 +796,6 @@ const SectionTitle = ({ number, title }) => {
   );
 };
 
+
 export default VolunteerForm;
+

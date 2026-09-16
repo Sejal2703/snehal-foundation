@@ -28,9 +28,11 @@ app.use(express.json());
 
 const volunteerFormRoute = require("./Routes/volunteerForm");
 const adminRoute = require("./Routes/admin");
+const contactRoute = require("./Routes/contact");
 
 app.use("/api/volunteer", volunteerFormRoute);
 app.use("/api/admin", adminRoute);
+app.use("/api/contact", contactRoute);
 
 // =====================================================
 // HEALTH CHECK

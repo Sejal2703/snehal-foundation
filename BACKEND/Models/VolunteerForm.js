@@ -1,7 +1,10 @@
+
 const mongoose = require("mongoose");
 
 const volunteerFormSchema = new mongoose.Schema(
   {
+    // ================= PERSONAL INFORMATION =================
+
     fullName: {
       type: String,
       required: true,
@@ -20,12 +23,15 @@ const volunteerFormSchema = new mongoose.Schema(
     gender: {
       type: String,
       required: true,
+      trim: true,
     },
 
     nationality: {
       type: String,
       trim: true,
     },
+
+    // ================= CONTACT INFORMATION =================
 
     mobile: {
       type: String,
@@ -42,7 +48,10 @@ const volunteerFormSchema = new mongoose.Schema(
       type: String,
       required: true,
       trim: true,
+      lowercase: true,
     },
+
+    // ================= ADDRESS =================
 
     address: {
       type: String,
@@ -65,13 +74,11 @@ const volunteerFormSchema = new mongoose.Schema(
       trim: true,
     },
 
-    aadhaarNumber: {
-      type: String,
-      trim: true,
-    },
+    // ================= EDUCATION & OCCUPATION =================
 
     qualification: {
       type: String,
+      required: true,
       trim: true,
     },
 
@@ -85,21 +92,35 @@ const volunteerFormSchema = new mongoose.Schema(
       trim: true,
     },
 
+    // ================= SKILLS & INTERESTS =================
+
     skills: {
       type: String,
+      required: true,
+      trim: true,
     },
 
     reasonToJoin: {
       type: String,
+      required: true,
+      trim: true,
     },
+
+    // ================= VOLUNTEERING PREFERENCES =================
 
     availableDays: {
       type: String,
+      required: true,
+      trim: true,
     },
 
     availableTime: {
       type: String,
+      required: true,
+      trim: true,
     },
+
+    // ================= EMERGENCY CONTACT =================
 
     emergencyName: {
       type: String,
@@ -116,7 +137,7 @@ const volunteerFormSchema = new mongoose.Schema(
       trim: true,
     },
 
-    // ================= STATUS =================
+    // ================= APPLICATION STATUS =================
 
     status: {
       type: String,
@@ -131,7 +152,7 @@ const volunteerFormSchema = new mongoose.Schema(
       required: true,
     },
 
-    // ================= DATE =================
+    // ================= SUBMISSION DATE =================
 
     date: {
       type: Date,
@@ -147,3 +168,4 @@ module.exports = mongoose.model(
   "VolunteerForm",
   volunteerFormSchema
 );
+

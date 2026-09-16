@@ -47,6 +47,7 @@ router.post("/login", async (req, res) => {
       {
         adminId: admin._id,
         email: admin.email,
+        role: "admin",
       },
       process.env.JWT_SECRET,
       {

@@ -1,6 +1,7 @@
-
 import React from "react";
 import { useNavigate, Link } from "react-router-dom";
+import Chatbot from "../components/Chatbot";
+
 import {
   ShieldCheck,
   HeartHandshake,
@@ -10,105 +11,914 @@ import {
 } from "lucide-react";
 
 import founder from "../assets/founder.jpeg";
-import heroImg from "../assets/WhatsApp Image 2026-01-20 at 2.41.45 PM.jpeg";
+import heroImg from "../assets/firstimg.png";
+
 
 const Home = () => {
   const navigate = useNavigate();
 
+  const values = [
+    {
+      number: "01",
+      title: "Compassion & Care",
+      text: "We approach every person with empathy, respect and genuine care.",
+    },
+    {
+      number: "02",
+      title: "Safety & Protection",
+      text: "We work to create safer environments where vulnerable people can live without fear.",
+    },
+    {
+      number: "03",
+      title: "Empowerment Through Education",
+      text: "We believe education and skills can open doors to independence and opportunity.",
+    },
+    {
+      number: "04",
+      title: "Equality & Dignity",
+      text: "Every individual deserves equal opportunities, dignity and respect.",
+    },
+    {
+      number: "05",
+      title: "Community & Lasting Impact",
+      text: "Sustainable change becomes possible when communities work together.",
+    },
+  ];
+
   return (
-    <main className="w-full max-w-full  overflow-x-hidden pt-0">
+    <main className="w-full max-w-full overflow-x-hidden pt-0">
 
       {/* =====================================================
-          HERO SECTION
+          ANIMATIONS
+      ===================================================== */}
+      <style>{`
+
+      /* =====================================================
+   HERO IMAGE
+===================================================== */
+
+@keyframes heroCinematicZoom {
+  0% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+
+  100% {
+    transform: scale(1.15);
+    opacity: 1;
+  }
+}
+
+.cinematic-hero-image {
+  animation: heroCinematicZoom 3.5s cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
+  transform-origin: center center;
+  will-change: transform, opacity;
+}
+           /* =====================================================
+           HERO GLOW
+        ===================================================== */
+
+        @keyframes ambientPulse {
+          0%,
+          100% {
+            opacity: 0.16;
+            transform: scale(1);
+          }
+
+          50% {
+            opacity: 0.28;
+            transform: scale(1.08);
+          }
+        }
+
+        .hero-glow {
+          animation: ambientPulse 7s ease-in-out infinite;
+        }
+
+
+        /* =====================================================
+           HERO TEXT REVEAL
+        ===================================================== */
+
+        @keyframes revealUp {
+          from {
+            opacity: 0;
+            transform: translateY(28px);
+          }
+
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+
+        .hero-reveal {
+          animation: revealUp 0.9s ease-out both;
+        }
+
+        .hero-reveal-delay-1 {
+          animation-delay: 0.12s;
+        }
+
+        .hero-reveal-delay-2 {
+          animation-delay: 0.24s;
+        }
+
+        .hero-reveal-delay-3 {
+          animation-delay: 0.36s;
+        }
+
+        .hero-reveal-delay-4 {
+          animation-delay: 0.48s;
+        }
+
+
+        /* =====================================================
+           SCROLL INDICATOR
+        ===================================================== */
+
+        @keyframes scrollPulse {
+          0%,
+          100% {
+            opacity: 0.45;
+            transform: translateY(0);
+          }
+
+          50% {
+            opacity: 1;
+            transform: translateY(5px);
+          }
+        }
+
+        .scroll-pulse {
+          animation: scrollPulse 2s ease-in-out infinite;
+        }
+
+
+        /* =====================================================
+           VALUE NODE
+        ===================================================== */
+
+        @keyframes valuePulse {
+          0%,
+          100% {
+            box-shadow:
+              0 0 0 0 rgba(37, 99, 235, 0);
+          }
+
+          50% {
+            box-shadow:
+              0 0 0 7px rgba(37, 99, 235, 0.08);
+          }
+        }
+
+        .value-node {
+          animation: valuePulse 3s ease-in-out infinite;
+        }
+
+
+        /* =====================================================
+           PREMIUM CARD SHINE
+        ===================================================== */
+
+        .premium-card {
+          position: relative;
+          overflow: hidden;
+        }
+
+        .premium-card::before {
+          content: "";
+
+          position: absolute;
+          top: -20%;
+          left: -85%;
+
+          width: 45%;
+          height: 140%;
+
+          background:
+            linear-gradient(
+              100deg,
+              transparent,
+              rgba(255, 255, 255, 0.18),
+              transparent
+            );
+
+          transform: skewX(-20deg);
+
+          transition:
+            left 900ms cubic-bezier(.22,.61,.36,1),
+            opacity 300ms ease;
+
+          opacity: 0;
+
+          pointer-events: none;
+
+          z-index: 20;
+        }
+
+        .premium-card:hover::before {
+          left: 145%;
+          opacity: 1;
+        }
+
+        .premium-card::after {
+          content: "";
+
+          position: absolute;
+          inset: 0;
+
+          border-radius: inherit;
+
+          pointer-events: none;
+
+          box-shadow:
+            inset 0 1px 0 rgba(255, 255, 255, 0.22);
+        }
+
+
+        /* =====================================================
+           REDUCED MOTION
+        ===================================================== */
+
+        @media (prefers-reduced-motion: reduce) {
+
+          .cinematic-hero-image,
+          .hero-glow,
+          .hero-reveal,
+          .scroll-pulse,
+          .value-node {
+            animation: none !important;
+          }
+
+        }
+
+      `}</style>
+
+      {/* =====================================================
+          HERO
       ===================================================== */}
       <section
-         className="relative min-h-[850px] sm:min-h-screen bg-cover bg-center flex items-center pt-20 md:pt-24"
-        style={{ backgroundImage: `url(${heroImg})` }}
+         className="
+  relative
+  w-full
+  h-auto
+  min-h-[780px]
+  sm:h-screen
+  sm:min-h-[700px]
+  overflow-hidden
+  flex
+  items-center
+  bg-slate-950
+"
       >
-        {/* Dark overlay */}
-        <div className="absolute inset-0 bg-black/55"></div>
 
-        {/* Gradient overlay */}
-        <div className="absolute inset-0 bg-gradient-to-r from-black/75 via-black/40 to-transparent"></div>
+        {/* ===================================================
+            HERO BACKGROUND
+        =================================================== */}
+       <div
+  className="
+    absolute
+    inset-x-0
+    top-0
+    h-[400px]
+    sm:inset-0
+    sm:h-full
+    overflow-hidden
+  "
+>
 
-        {/* Hero Content */}
-        <div className="relative z-10 w-full max-w-7xl mx-auto px-6 md:px-10 lg:px-16">
-          <div className="max-w-3xl text-white">
+    <img
+  src={heroImg}
+  alt="Snehal Foundation initiative"
+  className="
+    absolute
+    inset-0
+    w-full
+    h-full
+    object-cover
+    object-[72%_center]
+    cinematic-hero-image
+    sm:object-[56%_center]
+  "
+/>
 
-            <p className="text-blue-300 font-semibold uppercase tracking-[0.25em] text-sm md:text-base mb-5">
-              Snehal Foundation
-            </p>
-
-            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight font-serif">
-              Hope Begins
-              <br />
-              Where Fear Ends
-            </h1>
-
-            <p className="mt-5 text-base md:text-lg lg:text-xl font-medium text-blue-200 italic">
-              A Social Initiative Inspired by the Vision of Dr. B. R. Ambedkar
-            </p>
-
-            <div className="h-1 w-24 bg-blue-700 rounded-full mt-7 mb-7"></div>
-
-            <p className="text-lg md:text-xl lg:text-2xl text-gray-200 leading-relaxed max-w-2xl">
-              Working towards a safer, more dignified and empowered
-              society through education, healthcare, rehabilitation
-              and community support.
-            </p>
-
-            <div className="flex flex-col sm:flex-row gap-4 mt-9">
-
-              <button
-                onClick={() => navigate("/donate")}
-                className="bg-blue-500 hover:bg-blue-800 text-white px-8 py-4 rounded-full font-bold text-lg transition duration-300 shadow-lg hover:scale-105"
-              >
-                Donate Now
-              </button>
-
-              <button
-                onClick={() => navigate("/volunteer")}
-                className="border-2 border-white text-white hover:bg-white hover:text-blue-700 px-8 py-4 rounded-full font-bold text-lg transition duration-300 hover:scale-105"
-              >
-                Become a Volunteer
-              </button>
-
-            </div>
-          </div>
-        </div>
-{/* ================= SCROLL INDICATOR ================= */}
+{/* ===================================================
+    DARK CINEMATIC LEFT GRADIENT
+=================================================== */}
 <div
   className="
     absolute
-    bottom-4
-    sm:bottom-6
-    md:bottom-7
-    left-1/2
-    -translate-x-1/2
-    z-20
-    text-white
-    text-center
-    cursor-pointer
+    inset-0
+    bg-gradient-to-r
+    from-slate-950/90
+    via-slate-950/40
+    to-transparent
+    pointer-events-none
   "
-  onClick={() =>
-    document.getElementById("impact")?.scrollIntoView({
-      behavior: "smooth",
-    })
-  }
+/>
+          {/* SUBTLE BOTTOM FADE */}
+          <div
+            className="
+              absolute
+              inset-x-0
+              bottom-0
+              h-[15%]
+              bg-gradient-to-t
+              from-slate-950/35
+              to-transparent
+            "
+          />
+
+
+          {/* BLUE GLOW */}
+          <div
+            className="
+              hero-glow
+              absolute
+              -left-40
+              top-[20%]
+              w-[450px]
+              h-[450px]
+              rounded-full
+              bg-blue-600/10
+              blur-[130px]
+              pointer-events-none
+            "
+          />
+
+        </div>
+
+
+        {/* ===================================================
+            HERO CONTENT
+        =================================================== */}
+        <div
+          className="
+            relative
+            z-10
+            w-full
+            max-w-[1500px]
+            h-full
+            mx-auto
+            px-6
+            md:px-10
+            lg:px-16
+            xl:px-20
+            flex
+            items-center
+             pt-[105px]
+             sm:pt-[90px]
+             md:pt-[60px]
+             pb-[70px]
+          "
+        >
+
+          {/* =================================================
+              LEFT CONTENT
+          ================================================= */}
+          <div className="max-w-[850px]">
+
+            {/* EYEBROW */}
+            <div
+              className="
+                hero-reveal
+                flex
+                items-center
+                gap-5
+              "
+            >
+
+              <span className="h-[2px] w-12 bg-blue-400" />
+
+              <p
+                className="
+                  text-blue-300
+                  uppercase
+                  tracking-[0.34em]
+                  text-xs
+                  sm:text-sm
+                  font-semibold
+                "
+              >
+                Snehal Foundation
+              </p>
+
+            </div>
+
+
+            {/* =================================================
+                MAIN HEADING
+            ================================================= */}
+            <h1
+             className="
+  hero-reveal
+  hero-reveal-delay-1
+  mt-6
+  text-white
+  font-extrabold
+  tracking-[-0.045em]
+  leading-[0.95]
+  text-[2.6rem]
+sm:text-5xl
+  md:text-6xl
+  lg:text-[4.5rem]
+  xl:text-[4.9rem]
+  2xl:text-[5.1rem]
+"
+            >
+
+              <span className="block">
+                Hope Begins
+              </span>
+
+              <span className="block text-blue-300">
+                Were Fear Ends
+              </span>
+
+            </h1>
+
+
+            {/* =================================================
+                AMBEDKAR LINE
+            ================================================= */}
+            <p
+              className="
+                hero-reveal
+                hero-reveal-delay-2
+                mt-5
+                max-w-[720px]
+                text-base
+                sm:text-lg
+                md:text-xl
+                text-white/90
+                leading-relaxed
+                italic
+              "
+            >
+              A Social Initiative Inspired by the Vision of
+              Dr. B. R. Ambedkar
+            </p>
+
+
+            {/* =================================================
+                DECORATIVE LINES
+            ================================================= */}
+            <div
+              className="
+                hero-reveal
+                hero-reveal-delay-2
+                mt-4
+                flex
+                items-center
+                gap-3
+              "
+            >
+
+              <span className="h-[2px] w-16 bg-blue-400" />
+              <span className="h-px w-7 bg-white/40" />
+              <span className="h-px w-3 bg-white/20" />
+
+            </div>
+
+
+            {/* =================================================
+                DESCRIPTION
+            ================================================= */}
+            <p
+              className="
+                hero-reveal
+                hero-reveal-delay-3
+                mt-4
+                max-w-[680px]
+                text-sm
+                sm:text-base
+                md:text-lg
+                text-white/80
+                leading-7
+                md:leading-8
+              "
+            >
+              Working towards a safer, more dignified and empowered society
+              through education, healthcare, rehabilitation and community support.
+            </p>
+
+
+            {/* =================================================
+                BUTTONS
+            ================================================= */}
+            <div
+              className="
+                hero-reveal
+                hero-reveal-delay-4
+                mt-6
+                flex
+                flex-col
+                sm:flex-row
+                gap-4
+              "
+            >
+
+              {/* DONATE */}
+              <button
+                onClick={() => navigate("/donate")}
+                
+                className="
+  group
+  inline-flex
+  items-center
+  justify-center
+  gap-2
+  w-full
+  max-w-[280px]
+  sm:w-auto
+  sm:max-w-none
+  sm:min-w-[225px]
+  rounded-full
+  bg-blue-600
+  hover:bg-blue-700
+  px-5
+  py-3
+  sm:px-7
+  sm:py-4
+  text-sm
+  sm:text-base
+  md:text-lg
+  font-semibold
+  text-white
+  shadow-[0_15px_40px_rgba(37,99,235,.35)]
+  transition-all
+  duration-300
+  hover:-translate-y-1
+  hover:shadow-[0_20px_50px_rgba(37,99,235,.45)]
+"
+              >
+
+                Donate Now
+
+                <span
+  className="
+    text-lg
+    sm:text-xl
+    transition-transform
+    duration-300
+    group-hover:translate-x-1
+  "
 >
-  <p className="text-[10px] sm:text-xs uppercase tracking-[0.2em] font-medium mb-2 opacity-90 whitespace-nowrap">
-    Scroll to explore
-  </p>
+  →
+</span>
 
-  <div className="mx-auto w-6 h-9 sm:w-7 sm:h-11 border-2 border-white/80 rounded-full flex justify-center pt-2">
-    <div className="w-1 h-2.5 bg-white rounded-full animate-bounce"></div>
-  </div>
+              </button>
 
-  <div className="mt-1 text-base animate-bounce">
-    ↓
+
+              {/* VOLUNTEER */}
+              <button
+                onClick={() => navigate("/volunteer")}
+                className="
+  group
+  inline-flex
+  items-center
+  justify-center
+  gap-2
+  w-full
+  max-w-[280px]
+  sm:w-auto
+  sm:max-w-none
+  sm:min-w-[300px]
+  rounded-full
+  border
+  border-white/60
+  bg-transparent
+  px-5
+  py-3
+  sm:px-7
+  sm:py-4
+  text-sm
+  sm:text-base
+  md:text-lg
+  font-semibold
+  text-white
+  transition-all
+  duration-300
+  hover:-translate-y-1
+  hover:bg-white
+  hover:text-slate-900
+"
+              >
+
+                Become a Volunteer
+
+                <span
+  className="
+    text-lg
+    sm:text-xl
+    transition-transform
+    duration-300
+    group-hover:translate-x-1
+  "
+>
+  →
+</span>
+
+              </button>
+
+            </div>
+            
+
+
+            {/* =================================================
+                MOBILE STATS
+            ================================================= */}
+            <div
+              className="
+                mt-8
+                grid
+                grid-cols-3
+                gap-3
+                max-w-xl
+                lg:hidden
+              "
+            >
+
+              <div
+                className="
+                  rounded-2xl
+                  border
+                  border-white/15
+                  bg-black/20
+                  backdrop-blur-md
+                  p-3
+                  sm:p-4
+                "
+              >
+
+                <p className="text-xl sm:text-2xl font-bold text-white">
+                  5000+
+                </p>
+
+                <p className="mt-1 text-[10px] sm:text-xs text-white/60">
+                  Students
+                </p>
+
+              </div>
+
+
+              <div
+                className="
+                  rounded-2xl
+                  border
+                  border-white/15
+                  bg-black/20
+                  backdrop-blur-md
+                  p-3
+                  sm:p-4
+                "
+              >
+
+                <p className="text-xl sm:text-2xl font-bold text-white">
+                  120+
+                </p>
+
+                <p className="mt-1 text-[10px] sm:text-xs text-white/60">
+                  Medical Camps
+                </p>
+
+              </div>
+
+
+              <div
+                className="
+                  rounded-2xl
+                  border
+                  border-white/15
+                  bg-black/20
+                  backdrop-blur-md
+                  p-3
+                  sm:p-4
+                "
+              >
+
+                <p className="text-xl sm:text-2xl font-bold text-white">
+                  300+
+                </p>
+
+                <p className="mt-1 text-[10px] sm:text-xs text-white/60">
+                  Volunteers
+                </p>
+
+              </div>
+
+            </div>
+
+          </div>
+{/* =====================================================
+    IMPACT HIGHLIGHT — 5000+ LIVES TOUCHED
+===================================================== */}
+<div
+  className="
+    hidden
+    lg:block
+    absolute
+    right-[0px]
+xl:right-[20px]
+2xl:right-[45px]
+    top-[57%]
+    -translate-y-1/2
+    w-[300px]
+    xl:w-[340px]
+    2xl:w-[370px]
+    h-[480px]
+    pointer-events-none
+  "
+>
+  {/* GLOWING ORGANIC CURVE */}
+<svg
+  className="absolute inset-0 w-full h-full overflow-visible"
+  viewBox="0 0 370 480"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+>
+  {/* soft glow */}
+<path
+  d="
+    M 135 105
+    C 190 45, 300 70, 350 160
+    C 375 245, 330 330, 255 390
+    C 205 425, 155 445, 115 450
+  "
+  stroke="rgba(96,165,250,0.55)"
+  strokeWidth="10"
+  strokeLinecap="round"
+  filter="blur(8px)"
+/>
+
+  {/* main line */}
+  <path
+    d="
+      M 135 105
+      C 190 45, 300 70, 350 160
+      C 375 245, 330 330, 255 390
+      C 205 425, 155 445, 115 450
+    "
+    stroke="rgba(96,165,250,0.72)"
+    strokeWidth="1.2"
+    strokeLinecap="round"
+  />
+
+  {/* small inner highlight */}
+  <path
+    d="
+      M 140 108
+      C 195 55, 295 78, 340 160
+      C 360 240, 320 320, 250 380
+    "
+    stroke="rgba(147,197,253,0.35)"
+    strokeWidth="0.7"
+    strokeLinecap="round"
+  />
+</svg>
+
+  {/* 5000+ CONTENT */}
+  <div
+    className="
+      absolute
+      right-[0px]
+xl:right-[5px]
+2xl:right-[15px]
+      top-[51%]
+      -translate-y-1/2
+      w-[175px]
+      xl:w-[190px]
+      text-white
+      text-center
+    "
+  >
+    <p
+      className="
+        text-[2.5rem]
+        xl:text-[2.8rem]
+        2xl:text-[3rem]
+        font-extrabold
+        tracking-[-0.04em]
+        leading-none
+        drop-shadow-[0_0_18px_rgba(96,165,250,0.35)]
+      "
+    >
+      5000+
+    </p>
+
+    <div className="mt-3">
+      <span
+        className="
+          block
+          text-[0.65rem]
+          xl:text-xs
+          uppercase
+          tracking-[0.28em]
+          font-semibold
+          text-blue-200
+        "
+      >
+        Lives Touched
+      </span>
+
+      <span
+        className="
+          block
+          mt-1
+          text-[0.65rem]
+          xl:text-xs
+          uppercase
+          tracking-[0.22em]
+          text-white/65
+        "
+      >
+        and Counting
+      </span>
+    </div>
+
+    {/* small decorative leaf/dot */}
+    <div className="mt-5 flex justify-center items-center gap-2">
+      <span className="h-px w-8 bg-blue-300/40" />
+
+      <span
+        className="
+          block
+          w-2
+          h-2
+          rounded-full
+          bg-blue-300
+          shadow-[0_0_12px_rgba(96,165,250,0.8)]
+        "
+      />
+
+      <span className="h-px w-8 bg-blue-300/40" />
+    </div>
   </div>
 </div>
-       
+
+        </div>
+
+
+        {/* =====================================================
+            EXPLORE OUR IMPACT
+        ===================================================== */}
+        <a
+          href="#impact"
+          className="
+            absolute
+            bottom-5
+            left-1/2
+            -translate-x-1/2
+            z-20
+            hidden
+            sm:flex
+            flex-col
+            items-center
+            text-white/70
+            hover:text-white
+            transition-colors
+          "
+        >
+
+          {/* Mouse */}
+          <span
+            className="
+              flex
+              h-8
+              w-5
+              items-start
+              justify-center
+              rounded-full
+              border
+              border-white/65
+              pt-1
+            "
+          >
+            <span className="h-2 w-[2px] rounded-full bg-white" />
+          </span>
+
+
+          {/* Text */}
+          <span
+            className="
+              mt-2
+              text-[10px]
+              uppercase
+              tracking-[0.28em]
+            "
+          >
+            Explore Our Impact
+          </span>
+
+
+          {/* Arrow */}
+          <span className="scroll-pulse mt-1 text-lg">
+            ↓
+          </span>
+
+        </a>
+
       </section>
 
 
@@ -117,315 +927,514 @@ const Home = () => {
       ===================================================== */}
       <section
         id="impact"
-        className="w-full overflow-hidden bg-slate-100 py-16 md:py-20"
+        className="
+          relative
+          w-full
+          overflow-hidden
+          bg-slate-100
+          py-20
+          md:py-24
+        "
       >
-        <div className="w-full max-w-7xl mx-auto px-6 md:px-10 lg:px-16">
+
+        <div
+          className="
+            absolute
+            -top-32
+            left-1/2
+            h-72
+            w-72
+            -translate-x-1/2
+            rounded-full
+            bg-blue-200/30
+            blur-3xl
+          "
+        />
+
+
+        <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-10">
 
           <div className="text-center max-w-3xl mx-auto">
 
-            <p className="text-blue-700 font-bold uppercase tracking-[0.2em] text-sm md:text-base">
-              Our Impact
-            </p>
+            <div className="inline-flex items-center gap-3">
 
-            <h2 className="mt-3 text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 font-serif">
+              <span className="h-px w-8 bg-blue-500" />
+
+              <p className="text-blue-600 font-semibold uppercase tracking-[0.22em] text-sm">
+                Our Impact
+              </p>
+
+              <span className="h-px w-8 bg-blue-500" />
+
+            </div>
+
+
+            <h2 className="mt-4 text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-slate-900">
               Creating Change, Building Hope
             </h2>
 
-            <p className="mt-5 text-gray-700 text-base md:text-lg leading-relaxed">
-              Snehal Foundation works to create meaningful and lasting change
-              by supporting individuals, families and communities through
-              education, healthcare, rehabilitation and skill development.
+
+            <p className="mt-5 text-slate-600 leading-7 text-base md:text-lg">
+              Our work focuses on creating meaningful opportunities,
+              strengthening communities and helping vulnerable people move
+              towards safer and more dignified lives.
             </p>
 
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-12">
+
+          <div className="mt-14 grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
 
             {/* Education */}
-            <div className="group bg-white rounded-2xl p-7 text-center border border-gray-200 shadow-sm hover:shadow-xl hover:-translate-y-2 hover:bg-blue-500 transition-all duration-300">
+            <div
+              className="
+                group
+                premium-card
+                relative
+                flex
+                min-h-[300px]
+                flex-col
+                overflow-hidden
+                rounded-3xl
+                border
+                border-slate-200
+                bg-white
+                p-7
+                shadow-sm
+                transition-all
+                duration-500
+                hover:-translate-y-2
+                hover:border-blue-200
+                hover:shadow-[0_25px_60px_rgba(15,23,42,0.10)]
+              "
+            >
 
-              <div className="mx-auto w-16 h-16 rounded-full bg-blue-50 flex items-center justify-center group-hover:bg-blue-600 transition-all duration-300">
-                <GraduationCap className="w-8 h-8 text-blue-700 group-hover:text-white transition-colors duration-300" />
+              <div className="absolute inset-x-0 top-0 h-1 bg-blue-600 origin-left scale-x-0 transition-transform duration-500 group-hover:scale-x-100" />
+
+              <div className="relative z-10 flex h-14 w-14 items-center justify-center rounded-2xl bg-blue-50 text-blue-600 transition-all duration-500 group-hover:bg-blue-600 group-hover:text-white group-hover:scale-105">
+                <GraduationCap size={30} strokeWidth={1.8} />
               </div>
 
-              <h3 className="mt-5 text-xl font-bold text-gray-900 group-hover:text-white transition-colors duration-300">
+
+              <h3 className="relative z-10 mt-6 text-xl font-bold text-slate-900">
                 Education
               </h3>
 
-              <p className="mt-3 text-sm leading-relaxed text-gray-600 group-hover:text-blue-50 transition-colors duration-300">
-                Promoting access to education and creating opportunities
-                for a brighter future.
+
+              <p className="relative z-10 mt-3 text-slate-600 leading-7">
+                Creating access to education and opportunities that help
+                children and young people build a stronger future.
               </p>
+
+<div className="relative z-10 mt-auto pt-6">
+  <Link
+    to="/programs/education"
+    className="inline-flex items-center text-sm font-semibold text-blue-600 transition-all duration-300 hover:translate-x-1"
+  >
+    Building Futures
+    <span className="ml-2">→</span>
+  </Link>
+</div>
+              
 
             </div>
 
 
             {/* Healthcare */}
-            <div className="group bg-white rounded-2xl p-7 text-center border border-gray-200 shadow-sm hover:shadow-xl hover:-translate-y-2 hover:bg-blue-500 transition-all duration-300">
+            <div
+              className="
+                group
+                premium-card
+                relative
+                flex
+                min-h-[300px]
+                flex-col
+                overflow-hidden
+                rounded-3xl
+                border
+                border-slate-200
+                bg-white
+                p-7
+                shadow-sm
+                transition-all
+                duration-500
+                hover:-translate-y-2
+                hover:border-blue-200
+                hover:shadow-[0_25px_60px_rgba(15,23,42,0.10)]
+              "
+            >
 
-              <div className="mx-auto w-16 h-16 rounded-full bg-blue-50 flex items-center justify-center group-hover:bg-blue-600 transition-all duration-300">
-                <HeartHandshake className="w-8 h-8 text-blue-700 group-hover:text-white transition-colors duration-300" />
+              <div className="absolute inset-x-0 top-0 h-1 bg-blue-600 origin-left scale-x-0 transition-transform duration-500 group-hover:scale-x-100" />
+
+              <div className="relative z-10 flex h-14 w-14 items-center justify-center rounded-2xl bg-blue-50 text-blue-600 transition-all duration-500 group-hover:bg-blue-600 group-hover:text-white group-hover:scale-105">
+                <HeartHandshake size={30} strokeWidth={1.8} />
               </div>
 
-              <h3 className="mt-5 text-xl font-bold text-gray-900 group-hover:text-white transition-colors duration-300">
+
+              <h3 className="relative z-10 mt-6 text-xl font-bold text-slate-900">
                 Healthcare
               </h3>
 
-              <p className="mt-3 text-sm leading-relaxed text-gray-600 group-hover:text-blue-50 transition-colors duration-300">
-                Supporting better health, dignity and access to essential
-                healthcare services.
+
+              <p className="relative z-10 mt-3 text-slate-600 leading-7">
+                Supporting healthcare awareness and access for communities
+                that need it most.
               </p>
+
+<Link
+  to="/programs/healthcare"
+  className="inline-flex items-center text-sm font-semibold text-blue-600 transition-all duration-300 group-hover:translate-x-1"
+>
+  Caring for Communities
+  <span className="ml-2">→</span>
+</Link>
+              
 
             </div>
 
 
             {/* Skill Development */}
-            <div className="group bg-white rounded-2xl p-7 text-center border border-gray-200 shadow-sm hover:shadow-xl hover:-translate-y-2 hover:bg-blue-500 transition-all duration-300">
+            <div
+              className="
+                group
+                premium-card
+                relative
+                flex
+                min-h-[300px]
+                flex-col
+                overflow-hidden
+                rounded-3xl
+                border
+                border-slate-200
+                bg-white
+                p-7
+                shadow-sm
+                transition-all
+                duration-500
+                hover:-translate-y-2
+                hover:border-blue-200
+                hover:shadow-[0_25px_60px_rgba(15,23,42,0.10)]
+              "
+            >
 
-              <div className="mx-auto w-16 h-16 rounded-full bg-blue-50 flex items-center justify-center group-hover:bg-blue-600 transition-all duration-300">
-                <Users className="w-8 h-8 text-blue-700 group-hover:text-white transition-colors duration-300" />
+              <div className="absolute inset-x-0 top-0 h-1 bg-blue-600 origin-left scale-x-0 transition-transform duration-500 group-hover:scale-x-100" />
+
+              <div className="relative z-10 flex h-14 w-14 items-center justify-center rounded-2xl bg-blue-50 text-blue-600 transition-all duration-500 group-hover:bg-blue-600 group-hover:text-white group-hover:scale-105">
+                <Users size={30} strokeWidth={1.8} />
               </div>
 
-              <h3 className="mt-5 text-xl font-bold text-gray-900 group-hover:text-white transition-colors duration-300">
+
+              <h3 className="relative z-10 mt-6 text-xl font-bold text-slate-900">
                 Skill Development
               </h3>
 
-              <p className="mt-3 text-sm leading-relaxed text-gray-600 group-hover:text-blue-50 transition-colors duration-300">
-                Helping people build skills, confidence and opportunities
-                for sustainable growth.
+
+              <p className="relative z-10 mt-3 text-slate-600 leading-7">
+                Helping individuals develop skills and opportunities for
+                greater independence and livelihood.
               </p>
+
+
+              <Link
+  to="/programs/skill-development"
+  className="inline-flex items-center text-sm font-semibold text-blue-600 transition-all duration-300 group-hover:translate-x-1"
+>
+  Creating Opportunities
+  <span className="ml-2">→</span>
+</Link>
 
             </div>
 
 
             {/* Community Support */}
-            <div className="group bg-white rounded-2xl p-7 text-center border border-gray-200 shadow-sm hover:shadow-xl hover:-translate-y-2 hover:bg-blue-500 transition-all duration-300">
+            <div
+              className="
+                group
+                premium-card
+                relative
+                flex
+                min-h-[300px]
+                flex-col
+                overflow-hidden
+                rounded-3xl
+                border
+                border-slate-200
+                bg-white
+                p-7
+                shadow-sm
+                transition-all
+                duration-500
+                hover:-translate-y-2
+                hover:border-blue-200
+                hover:shadow-[0_25px_60px_rgba(15,23,42,0.10)]
+              "
+            >
 
-              <div className="mx-auto w-16 h-16 rounded-full bg-blue-50 flex items-center justify-center group-hover:bg-blue-600 transition-all duration-300">
-                <ShieldCheck className="w-8 h-8 text-blue-700 group-hover:text-white transition-colors duration-300" />
+              <div className="absolute inset-x-0 top-0 h-1 bg-blue-600 origin-left scale-x-0 transition-transform duration-500 group-hover:scale-x-100" />
+
+              <div className="relative z-10 flex h-14 w-14 items-center justify-center rounded-2xl bg-blue-50 text-blue-600 transition-all duration-500 group-hover:bg-blue-600 group-hover:text-white group-hover:scale-105">
+                <ShieldCheck size={30} strokeWidth={1.8} />
               </div>
 
-              <h3 className="mt-5 text-xl font-bold text-gray-900 group-hover:text-white transition-colors duration-300">
+
+              <h3 className="relative z-10 mt-6 text-xl font-bold text-slate-900">
                 Community Support
               </h3>
 
-              <p className="mt-3 text-sm leading-relaxed text-gray-600 group-hover:text-blue-50 transition-colors duration-300">
-                Building safer and stronger communities through care,
-                support and collective action.
+
+              <p className="relative z-10 mt-3 text-slate-600 leading-7">
+                Working with communities to promote safety, dignity,
+                equality and lasting social change.
               </p>
+
+
+              <div className="relative z-10 mt-auto pt-6">
+                <span className="text-sm font-semibold text-blue-600">
+                  Strengthening Communities →
+                </span>
+              </div>
 
             </div>
 
           </div>
 
-          <div className="mt-12 text-center">
-            <p className="text-gray-700 text-base md:text-2xl font-medium">
-              Together, we can turn compassion into action and hope into
-              lasting change.
+
+          <div className="mt-14 text-center">
+
+            <p className="text-lg md:text-xl font-medium text-slate-700">
+              Together, we can turn{" "}
+              <span className="text-blue-600 font-semibold">
+                compassion into action
+              </span>{" "}
+              and{" "}
+              <span className="text-blue-600 font-semibold">
+                hope into lasting change.
+              </span>
             </p>
+
           </div>
 
         </div>
+
       </section>
 
 
       {/* =====================================================
-          ABOUT / WHO WE ARE
+          WHO WE ARE
       ===================================================== */}
-      <section className="w-full overflow-hidden bg-white py-20 md:py-24">
+      <section className="w-full bg-white py-20 md:py-24 overflow-hidden">
 
-        <div className="w-full max-w-7xl mx-auto px-6 md:px-10 lg:px-16">
+        <div className="max-w-7xl mx-auto px-6 md:px-10">
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+          <div className="grid lg:grid-cols-2 gap-14 lg:gap-20 items-center">
 
-            {/* LEFT — CONTENT */}
+            {/* LEFT */}
             <div>
 
-              <p className="text-blue-700 font-semibold uppercase tracking-[0.2em] text-sm md:text-base mb-4">
+              <p className="text-blue-600 font-semibold uppercase tracking-widest text-sm">
                 Who We Are
               </p>
 
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 font-serif leading-tight">
-                Working Together to Build
-                <span className="text-blue-700"> a Better Tomorrow</span>
+
+              <h2 className="mt-3 text-3xl sm:text-4xl md:text-5xl font-bold text-slate-900 leading-tight">
+                Working Together to Build a Better Tomorrow
               </h2>
 
-              <div className="h-1 w-20 bg-blue-700 rounded-full mt-6 mb-7"></div>
 
-              <p className="text-gray-600 text-base md:text-lg leading-relaxed mb-5">
-                Snehal Foundation is committed to creating a safer, more
-                dignified and empowered society by supporting individuals,
-                families and communities in need.
+              <p className="mt-6 text-slate-600 leading-8">
+                Snehal Foundation works towards building a safer, more
+                dignified and empowered society where every individual has
+                the opportunity to live with hope, equality and respect.
               </p>
 
-              <p className="text-gray-600 text-base md:text-lg leading-relaxed mb-8">
-                Through education, healthcare, rehabilitation, skill development
-                and community support, we work to create opportunities that help
-                people move towards a more secure and independent future.
+
+              <p className="mt-4 text-slate-600 leading-8">
+                Our initiatives focus on education, healthcare, protection,
+                rehabilitation, skill development and community support,
+                especially for vulnerable children, girls and women.
               </p>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
 
-                <div className="flex items-start gap-3">
-                  <div className="w-2 h-2 rounded-full bg-blue-700 mt-2.5 shrink-0"></div>
-                  <p className="text-gray-700 font-medium">
-                    Supporting vulnerable communities
-                  </p>
-                </div>
+              <div className="mt-7 space-y-4">
 
-                <div className="flex items-start gap-3">
-                  <div className="w-2 h-2 rounded-full bg-blue-700 mt-2.5 shrink-0"></div>
-                  <p className="text-gray-700 font-medium">
-                    Promoting dignity and self-reliance
-                  </p>
-                </div>
+                {[
+                  "Creating safer environments for vulnerable communities",
+                  "Promoting education and meaningful opportunities",
+                  "Supporting dignity, equality and empowerment",
+                  "Building stronger and more compassionate communities",
+                ].map((item, index) => (
 
-                <div className="flex items-start gap-3">
-                  <div className="w-2 h-2 rounded-full bg-blue-700 mt-2.5 shrink-0"></div>
-                  <p className="text-gray-700 font-medium">
-                    Creating meaningful opportunities
-                  </p>
-                </div>
+                  <div
+                    key={index}
+                    className="flex items-start gap-3 group"
+                  >
 
-                <div className="flex items-start gap-3">
-                  <div className="w-2 h-2 rounded-full bg-blue-700 mt-2.5 shrink-0"></div>
-                  <p className="text-gray-700 font-medium">
-                    Building stronger communities
-                  </p>
-                </div>
+                    <CheckCircle
+                      size={21}
+                      className="mt-1 shrink-0 text-blue-600 transition-transform duration-300 group-hover:scale-110"
+                    />
+
+                    <p className="text-slate-700 leading-7">
+                      {item}
+                    </p>
+
+                  </div>
+
+                ))}
 
               </div>
 
-              <button
-                onClick={() => navigate("/about")}
-                className="inline-flex items-center justify-center bg-blue-600 hover:bg-blue-800 text-white px-7 py-3.5 rounded-full font-semibold shadow-md hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
+
+              <Link
+                to="/about"
+                className="group inline-flex items-center gap-2 mt-9 rounded-full bg-blue-600 hover:bg-blue-700 px-7 py-3.5 font-semibold text-white transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
               >
+
                 Learn More About Us
-              </button>
+
+                <span className="text-lg transition-transform duration-300 group-hover:translate-x-1">
+                  →
+                </span>
+
+              </Link>
 
             </div>
 
 
-            {/* RIGHT — BRANDED VISUAL PANEL */}
+            {/* RIGHT */}
             <div className="relative">
 
-              <div className="relative overflow-hidden rounded-3xl bg-blue-100 shadow-2xl px-8 py-12 md:px-12 md:py-14">
+              <div
+                className="
+                  group
+                  premium-card
+                  relative
+                  rounded-[2rem]
+                  bg-gradient-to-br
+                  from-blue-950
+                  via-blue-900
+                  to-slate-900
+                  p-8
+                  md:p-10
+                  text-white
+                  shadow-2xl
+                  overflow-hidden
+                  transition-all
+                  duration-500
+                  hover:-translate-y-2
+                  hover:scale-[1.015]
+                  hover:shadow-[0_30px_80px_rgba(15,23,42,.35)]
+                "
+              >
 
-                {/* Decorative circles */}
-                <div className="absolute -top-20 -right-20 w-64 h-64 rounded-full bg-white/30"></div>
+                <div className="absolute -right-20 -top-20 w-64 h-64 rounded-full bg-blue-500/20 blur-3xl" />
 
-                <div className="absolute -bottom-28 -left-24 w-72 h-72 rounded-full bg-blue-300/30"></div>
+                <div className="absolute -left-20 -bottom-20 w-56 h-56 rounded-full bg-blue-400/10 blur-3xl" />
 
-                {/* Decorative line */}
-                <div className="absolute top-0 left-0 w-full h-1 bg-blue-700"></div>
 
                 <div className="relative z-10">
 
-                  {/* Small Heading */}
-                  <div className="flex items-center gap-3 mb-8">
-
-                    <div className="w-10 h-10 rounded-full bg-blue-700 flex items-center justify-center">
-                      <HeartHandshake className="w-5 h-5 text-white" />
-                    </div>
-
-                    <p className="text-blue-800 uppercase tracking-[0.2em] text-sm font-semibold">
-                      Our Commitment
-                    </p>
-
-                  </div>
-
-
-                  {/* Main Heading */}
-                  <h3 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 font-serif leading-tight">
-                    Compassion
-                    <br />
-                    Into Action
-                  </h3>
-
-                  <div className="h-1 w-16 bg-blue-700 rounded-full mt-6 mb-7"></div>
-
-
-                  {/* Motto */}
-                  <p className="text-blue-900 text-lg md:text-xl leading-relaxed font-medium">
-                    Empowering Lives.
-                    <br />
-                    Protecting Futures.
-                    <br />
-                    Building Strong Communities.
+                  <p className="text-blue-300 text-sm uppercase tracking-[0.25em] font-semibold">
+                    Our Commitment
                   </p>
 
 
-                  {/* Values */}
-                  <div className="mt-10 grid grid-cols-2 gap-5">
+                  <h3 className="mt-5 text-3xl md:text-4xl font-bold leading-tight">
+                    Compassion Into Action
+                  </h3>
 
-                    <div className="flex items-center gap-3">
-                      <div className="w-9 h-9 rounded-full bg-blue-700 flex items-center justify-center shrink-0">
-                        <ShieldCheck className="w-5 h-5 text-white" />
+
+                  <p className="mt-5 text-white/70 leading-7">
+                    We believe lasting change begins when compassion becomes
+                    action and communities come together to protect, empower
+                    and support one another.
+                  </p>
+
+
+                  <div className="mt-9 grid grid-cols-2 gap-4">
+
+                    {[
+                      ["Safety", ShieldCheck],
+                      ["Education", GraduationCap],
+                      ["Compassion", HeartHandshake],
+                      ["Community", Users],
+                    ].map(([label, Icon]) => (
+
+                      <div
+                        key={label}
+                        className="
+                          group/item
+                          premium-card
+                          rounded-2xl
+                          border
+                          border-white/10
+                          bg-white/[0.07]
+                          p-5
+                          transition-all
+                          duration-300
+                          hover:bg-white/[0.12]
+                          hover:border-blue-300/20
+                          hover:-translate-y-1
+                        "
+                      >
+
+                        <Icon
+                          size={28}
+                          className="relative z-10 text-blue-300 transition-transform duration-300 group-hover/item:scale-110"
+                        />
+
+                        <p className="relative z-10 mt-3 font-semibold text-white">
+                          {label}
+                        </p>
+
                       </div>
 
-                      <span className="text-gray-900 text-sm md:text-base font-medium">
-                        Safety
-                      </span>
-                    </div>
-
-
-                    <div className="flex items-center gap-3">
-                      <div className="w-9 h-9 rounded-full bg-blue-700 flex items-center justify-center shrink-0">
-                        <GraduationCap className="w-5 h-5 text-white" />
-                      </div>
-
-                      <span className="text-gray-900 text-sm md:text-base font-medium">
-                        Education
-                      </span>
-                    </div>
-
-
-                    <div className="flex items-center gap-3">
-                      <div className="w-9 h-9 rounded-full bg-blue-700 flex items-center justify-center shrink-0">
-                        <HeartHandshake className="w-5 h-5 text-white" />
-                      </div>
-
-                      <span className="text-gray-900 text-sm md:text-base font-medium">
-                        Compassion
-                      </span>
-                    </div>
-
-
-                    <div className="flex items-center gap-3">
-                      <div className="w-9 h-9 rounded-full bg-blue-700 flex items-center justify-center shrink-0">
-                        <Users className="w-5 h-5 text-white" />
-                      </div>
-
-                      <span className="text-gray-900 text-sm md:text-base font-medium">
-                        Community
-                      </span>
-                    </div>
+                    ))}
 
                   </div>
 
 
-                  {/* Bottom Message */}
-                  <div className="mt-10 pt-7 border-t border-blue-400/50">
+                  <div className="mt-8 border-t border-white/10 pt-6">
 
-                    <p className="text-gray-700 text-sm md:text-base leading-relaxed">
-                      Together, we can create safer communities, expand
-                      opportunities and build a future rooted in dignity and hope.
+                    <p className="text-white/70">
+                      Together, we can turn{" "}
+                      <span className="text-blue-300 font-semibold">
+                        hope
+                      </span>{" "}
+                      into{" "}
+                      <span className="text-white font-semibold">
+                        action.
+                      </span>
                     </p>
 
                   </div>
 
                 </div>
+
               </div>
 
 
-              {/* Floating Badge */}
-              <div className="absolute -bottom-6 right-5 md:right-8 bg-white rounded-2xl shadow-xl border border-gray-100 px-6 py-4">
+              {/* FLOATING LABEL */}
+              <div
+                className="
+                  absolute
+                  -bottom-6
+                  right-10
+                  rounded-2xl
+                  bg-white
+                  shadow-xl
+                  border
+                  border-slate-100
+                  px-5
+                  py-4
+                "
+              >
 
-                <p className="text-blue-700 font-bold text-lg">
+                <p className="text-xs uppercase tracking-widest text-slate-400">
                   Together
                 </p>
 
-                <p className="text-gray-600 text-sm">
+                <p className="font-bold text-slate-900">
                   Turning hope into action
                 </p>
 
@@ -436,189 +1445,267 @@ const Home = () => {
           </div>
 
         </div>
+
       </section>
 
-{/* ================= OUR FOUNDER ================= */}
-<section
-id="founder"
-className="w-full overflow-hidden bg-blue-50 py-20 md:py-24">
-  <div className="w-full max-w-7xl mx-auto px-6 md:px-10 lg:px-16">
 
-    <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+      {/* =====================================================
+          FOUNDER
+      ===================================================== */}
+      <section
+        id="founder"
+        className="
+          relative
+          w-full
+          overflow-hidden
+          bg-blue-50
+          py-20
+          md:py-24
+        "
+      >
 
-      {/* ================= FOUNDER PHOTO ================= */}
-      <div className="relative">
+        <div className="absolute -top-32 -left-32 w-96 h-96 rounded-full bg-blue-200/30 blur-3xl pointer-events-none" />
 
-        {/* Decorative background shape */}
-        <div className="absolute -top-5 -left-5 w-32 h-32 bg-blue-100 rounded-3xl"></div>
+        <div className="absolute -bottom-40 -right-32 w-96 h-96 rounded-full bg-blue-300/20 blur-3xl pointer-events-none" />
 
-        {/* Founder Photo */}
-        <div className="relative h-[500px] md:h-[600px] rounded-3xl overflow-hidden bg-slate-100 border border-gray-200 shadow-xl">
-          
-          <img
-            src={founder}
-            alt="Founder of Snehal Foundation"
-            className="w-full h-full object-cover object-[center_20%]"
-          />
+
+        <div className="relative max-w-7xl mx-auto px-6 md:px-10">
+
+          <div className="grid lg:grid-cols-2 gap-14 lg:gap-20 items-center">
+
+            {/* Founder Image */}
+            <div className="relative">
+
+              <div className="absolute -top-4 -left-4 w-24 h-24 rounded-3xl border-2 border-blue-200 pointer-events-none" />
+
+              <div className="absolute -bottom-4 -right-4 w-28 h-28 rounded-3xl bg-blue-600/10 pointer-events-none" />
+
+
+              <div
+                className="
+                  group
+                  premium-card
+                  relative
+                  overflow-hidden
+                  rounded-[2rem]
+                  shadow-2xl
+                  border
+                  border-white/70
+                  bg-white
+                  transition-all
+                  duration-500
+                  hover:-translate-y-1
+                  hover:shadow-[0_30px_70px_rgba(15,23,42,.20)]
+                "
+              >
+
+                <img
+                  src={founder}
+                  alt="Founder of Snehal Foundation"
+                  className="
+                    w-full
+                    h-[500px]
+                    md:h-[600px]
+                    object-cover
+                    object-[center_20%]
+                    transition-transform
+                    duration-700
+                    ease-out
+                    group-hover:scale-[1.03]
+                  "
+                />
+
+
+                <div className="absolute inset-0 bg-gradient-to-t from-blue-950/30 via-transparent to-transparent opacity-70 pointer-events-none" />
+
+              </div>
+
+            </div>
+
+
+            {/* Founder Text */}
+            <div>
+
+              <p className="text-blue-600 font-semibold uppercase tracking-widest text-sm">
+                Meet Our Founder
+              </p>
+
+
+              <h2 className="mt-3 text-3xl sm:text-4xl md:text-5xl font-bold text-slate-900 leading-tight">
+                The Vision Behind Snehal Foundation
+              </h2>
+
+
+              <h3 className="mt-7 text-2xl md:text-3xl font-bold text-slate-900">
+                Mr. Viplav Narendra Meshram
+              </h3>
+
+
+              <p className="mt-1 text-blue-600 font-semibold">
+                Founder, MD & CEO
+              </p>
+
+
+              <p className="mt-6 text-slate-600 leading-8">
+                Snehal Foundation is driven by a deep commitment to creating
+                a safer and more dignified society, especially for vulnerable
+                children, girls and women.
+              </p>
+
+
+              <p className="mt-4 text-slate-600 leading-8">
+                Through community-focused initiatives, the Foundation works
+                to create opportunities through education, healthcare, skill
+                development and social support while standing against
+                trafficking, exploitation, discrimination and inequality.
+              </p>
+
+
+              <blockquote
+                className="
+                  premium-card
+                  relative
+                  mt-8
+                  rounded-2xl
+                  border-l-4
+                  border-blue-600
+                  bg-white/70
+                  px-6
+                  py-5
+                  shadow-sm
+                "
+              >
+
+                <p className="relative z-10 text-xl md:text-2xl font-semibold italic text-slate-800 leading-relaxed">
+                  "Empowering Lives. Protecting Futures. Building Strong Communities."
+                </p>
+
+              </blockquote>
+
+
+              <Link
+                to="/our-team"
+                className="group inline-flex items-center gap-2 mt-9 rounded-full bg-blue-600 hover:bg-blue-700 px-7 py-3.5 font-semibold text-white transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
+              >
+
+                Explore Our Team
+
+                <span className="text-lg transition-transform duration-300 group-hover:translate-x-1">
+                  →
+                </span>
+
+              </Link>
+
+            </div>
+
+          </div>
 
         </div>
 
-        {/* Decorative bottom shape */}
-        <div className="absolute -bottom-5 -right-5 w-24 h-24 bg-blue-100 rounded-2xl -z-0"></div>
-
-      </div>
-
-
-      {/* ================= FOUNDER INFORMATION ================= */}
-      <div>
-
-        {/* Small Heading */}
-        <p className="text-blue-700 font-semibold uppercase tracking-[0.2em] text-sm md:text-base mb-4">
-          Meet Our Founder
-        </p>
-
-        {/* Main Heading */}
-        <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 font-serif leading-tight">
-          The Vision Behind
-          <span className="text-blue-700"> Snehal Foundation</span>
-        </h2>
-
-        {/* Divider */}
-        <div className="h-1 w-20 bg-blue-700 rounded-full mt-6 mb-7"></div>
-
-        {/* Founder Name */}
-        <h3 className="text-2xl md:text-3xl font-bold text-gray-900 font-serif">
-          Mr. Viplav Narendra Meshram
-        </h3>
-
-        <p className="mt-2 text-blue-700 font-semibold text-base md:text-lg">
-          Founder , MD & CEO
-        </p>
-
-        {/* Information */}
-        <p className="mt-6 text-gray-600 text-base md:text-lg leading-relaxed">
-          Snehal Foundation was founded with a vision to create a safer,
-          more dignified and empowered society where vulnerable individuals
-          receive the support, opportunities and care they deserve.
-        </p>
-
-        <p className="mt-5 text-gray-600 text-base md:text-lg leading-relaxed">
-          Through a commitment to education, protection, healthcare,
-          rehabilitation and empowerment, the Foundation works towards
-          creating meaningful opportunities and lasting social change.
-        </p>
-
-        {/* Founder Quote */}
-        <div className="mt-7 border-l-4 border-blue-700 pl-5">
-
-          <p className="text-gray-800 text-lg md:text-xl font-serif italic leading-relaxed">
-            "Empowering Lives. Protecting Futures. Building Strong Communities."
-          </p>
-
-        </div>
-
-        {/* Explore Team Button */}
-        <div className="mt-9">
-
-          <button
-            onClick={() => navigate("/our-team")}
-            className="
-              inline-flex items-center justify-center
-              bg-blue-700
-              hover:bg-blue-800
-              text-white
-              px-8 py-3.5
-              rounded-full
-              font-semibold
-              shadow-md
-              hover:shadow-lg
-              transition-all duration-300
-              hover:-translate-y-1
-            "
-          >
-            Explore Our Team →
-          </button>
-
-        </div>
-
-      </div>
-
-    </div>
-
-  </div>
-</section>
+      </section>
 
 
       {/* =====================================================
           MISSION & VISION
       ===================================================== */}
-      <section className="w-full overflow-hidden bg-slate-100 py-20 md:py-24">
+      <section className="relative w-full overflow-hidden bg-white py-20 md:py-24">
 
-        <div className="w-full max-w-7xl mx-auto px-6 md:px-10 lg:px-16">
+        <div className="absolute -top-32 right-[-120px] w-96 h-96 rounded-full bg-blue-100/50 blur-3xl pointer-events-none" />
 
-          <div className="text-center max-w-3xl mx-auto mb-14">
+        <div className="absolute -bottom-32 left-[-120px] w-96 h-96 rounded-full bg-blue-50 blur-3xl pointer-events-none" />
 
-            <p className="text-blue-700 font-semibold uppercase tracking-[0.2em] text-sm md:text-base">
+
+        <div className="relative max-w-7xl mx-auto px-6 md:px-10">
+
+          <div className="text-center max-w-3xl mx-auto">
+
+            <p className="text-blue-600 font-semibold uppercase tracking-widest text-sm">
               Our Purpose
             </p>
 
-            <h2 className="mt-3 text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 font-serif">
-              Our Mission & Vision
+
+            <h2 className="mt-3 text-3xl sm:text-4xl md:text-5xl font-bold text-slate-900 leading-tight">
+              Mission & Vision
             </h2>
 
-            <p className="mt-5 text-gray-600 text-base md:text-lg leading-relaxed">
-              We believe every child deserves safety, every girl deserves
-              opportunity, and every woman deserves dignity and independence.
+
+            <p className="mt-5 text-slate-600 leading-7">
+              Guided by compassion and purpose, we work towards creating
+              safer communities, empowering individuals and building a
+              more dignified future for all.
             </p>
 
           </div>
 
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <div className="mt-12 grid lg:grid-cols-2 gap-7">
 
-            {/* VISION */}
-            <div className="group bg-white rounded-3xl p-8 md:p-10 shadow-md border border-gray-200 transition-all duration-300 hover:scale-[1.03] hover:shadow-2xl hover:border-blue-200">
+            {/* Vision */}
+            <div
+              className="
+                group
+                premium-card
+                relative
+                overflow-hidden
+                rounded-[2rem]
+                bg-blue-50
+                p-8
+                md:p-10
+                border
+                border-blue-100
+                transition-all
+                duration-500
+                hover:-translate-y-2
+                hover:shadow-[0_25px_60px_rgba(37,99,235,.15)]
+                hover:border-blue-200
+              "
+            >
 
-              <div className="w-16 h-16 rounded-2xl bg-blue-100 flex items-center justify-center mb-6 group-hover:bg-blue-500 transition-colors duration-300">
-                <ShieldCheck className="w-8 h-8 text-blue-500 group-hover:text-white transition-colors duration-300" />
-              </div>
+              <div className="absolute -right-20 -top-20 w-56 h-56 rounded-full bg-blue-200/40 blur-3xl" />
 
-              <p className="text-blue-700 font-semibold uppercase tracking-wider text-sm mb-2">
-                Our Vision
-              </p>
+              <div className="absolute top-0 left-0 h-1 w-0 bg-blue-600 transition-all duration-500 group-hover:w-full" />
 
-              <h3 className="text-2xl md:text-3xl font-bold text-gray-900 font-serif mb-5">
-                A Safer and More Equal Future
-              </h3>
 
-              <p className="text-gray-600 leading-relaxed text-base md:text-lg">
-                To build a world where every child is safe, every girl is
-                empowered, every woman lives with dignity, and every community
-                is free from human trafficking, exploitation, discrimination,
-                and inequality.
-              </p>
+              <div className="relative z-10">
 
-              <div className="mt-7 space-y-3">
+                <div className="flex items-center gap-4">
 
-                <div className="flex gap-3 items-start">
-                  <CheckCircle className="text-blue-700 flex-shrink-0 mt-1" size={20} />
-                  <p className="text-gray-700">
-                    Safe and nurturing environments for children
-                  </p>
+                  <div className="h-14 w-14 shrink-0 rounded-2xl bg-blue-600 text-white flex items-center justify-center shadow-lg shadow-blue-600/20">
+
+                    <ShieldCheck size={27} />
+
+                  </div>
+
+
+                  <div>
+
+                    <p className="text-xs uppercase tracking-widest text-blue-500 font-semibold">
+                      Our
+                    </p>
+
+                    <h3 className="text-2xl font-bold text-slate-900">
+                      Vision
+                    </h3>
+
+                  </div>
+
                 </div>
 
-                <div className="flex gap-3 items-start">
-                  <CheckCircle className="text-blue-700 flex-shrink-0 mt-1" size={20} />
-                  <p className="text-gray-700">
-                    Education and equal opportunities for girls
-                  </p>
-                </div>
 
-                <div className="flex gap-3 items-start">
-                  <CheckCircle className="text-blue-700 flex-shrink-0 mt-1" size={20} />
-                  <p className="text-gray-700">
-                    Empowered women and stronger communities
+                <p className="mt-7 text-slate-600 leading-8">
+                  To build a world where every child is safe, every girl is
+                  empowered, every woman lives with dignity, and every
+                  community has the opportunity to thrive free from trafficking,
+                  exploitation, discrimination and inequality.
+                </p>
+
+
+                <div className="mt-7 pt-5 border-t border-blue-200/70">
+
+                  <p className="text-sm font-semibold text-blue-700">
+                    A safer world begins with empowered lives.
                   </p>
+
                 </div>
 
               </div>
@@ -626,55 +1713,79 @@ className="w-full overflow-hidden bg-blue-50 py-20 md:py-24">
             </div>
 
 
-            {/* MISSION */}
-            <div className="group bg-white rounded-3xl p-8 md:p-10 shadow-md border border-gray-200 transition-all duration-300 hover:scale-[1.03] hover:shadow-2xl hover:border-blue-200">
+            {/* Mission */}
+            <div
+              className="
+                group
+                premium-card
+                relative
+                overflow-hidden
+                rounded-[2rem]
+                bg-gradient-to-br
+                from-blue-950
+                via-blue-900
+                to-slate-900
+                p-8
+                md:p-10
+                text-white
+                border
+                border-blue-900/50
+                shadow-2xl
+                transition-all
+                duration-500
+                hover:-translate-y-2
+                hover:scale-[1.01]
+                hover:shadow-[0_30px_70px_rgba(15,23,42,.30)]
+              "
+            >
 
-              <div className="w-16 h-16 rounded-2xl bg-blue-100 flex items-center justify-center mb-6 group-hover:bg-blue-500 transition-colors duration-300">
-                <HeartHandshake className="w-8 h-8 text-blue-500 group-hover:text-white transition-colors duration-300" />
-              </div>
+              <div className="absolute -right-20 -top-20 w-64 h-64 rounded-full bg-blue-500/20 blur-3xl" />
 
-              <p className="text-blue-700 font-semibold uppercase tracking-wider text-sm mb-2">
-                Our Mission
-              </p>
+              <div className="absolute -left-20 -bottom-20 w-60 h-60 rounded-full bg-blue-400/10 blur-3xl" />
 
-              <h3 className="text-2xl md:text-3xl font-bold text-gray-900 font-serif mb-5">
-                Creating Lasting Social Impact
-              </h3>
+              <div className="absolute top-0 left-0 h-1 w-0 bg-blue-400 transition-all duration-500 group-hover:w-full" />
 
-              <p className="text-gray-600 leading-relaxed text-base md:text-lg">
-                To create lasting social impact by empowering vulnerable
-                communities through education, protection, healthcare,
-                livelihood opportunities, and advocacy.
-              </p>
 
-              <div className="mt-7 space-y-3">
+              <div className="relative z-10">
 
-                <div className="flex gap-3 items-start">
-                  <CheckCircle className="text-blue-700 flex-shrink-0 mt-1" size={20} />
-                  <p className="text-gray-700">
-                    Prevent human trafficking through awareness
-                  </p>
+                <div className="flex items-center gap-4">
+
+                  <div className="h-14 w-14 shrink-0 rounded-2xl bg-blue-600 text-white flex items-center justify-center shadow-lg">
+
+                    <HeartHandshake size={27} />
+
+                  </div>
+
+
+                  <div>
+
+                    <p className="text-xs uppercase tracking-widest text-blue-300 font-semibold">
+                      Our
+                    </p>
+
+                    <h3 className="text-2xl font-bold text-white">
+                      Mission
+                    </h3>
+
+                  </div>
+
                 </div>
 
-                <div className="flex gap-3 items-start">
-                  <CheckCircle className="text-blue-700 flex-shrink-0 mt-1" size={20} />
-                  <p className="text-gray-700">
-                    Protect children from abuse and exploitation
-                  </p>
-                </div>
 
-                <div className="flex gap-3 items-start">
-                  <CheckCircle className="text-blue-700 flex-shrink-0 mt-1" size={20} />
-                  <p className="text-gray-700">
-                    Empower women through education and skills
-                  </p>
-                </div>
+                <p className="mt-7 text-white/70 leading-8">
+                  To create meaningful pathways through education, protection,
+                  healthcare, livelihood opportunities, rehabilitation and
+                  advocacy while strengthening communities and promoting
+                  dignity, equality and empowerment.
+                </p>
 
-                <div className="flex gap-3 items-start">
-                  <CheckCircle className="text-blue-700 flex-shrink-0 mt-1" size={20} />
-                  <p className="text-gray-700">
-                    Support survivors through rehabilitation and livelihood
+
+                <div className="mt-7 pt-5 border-t border-white/10">
+
+                  <p className="text-sm font-semibold text-blue-300">
+                    Turning compassion into meaningful action.
                   </p>
+
                 </div>
 
               </div>
@@ -684,600 +1795,762 @@ className="w-full overflow-hidden bg-blue-50 py-20 md:py-24">
           </div>
 
 
-          <div className="text-center mt-10">
+          <div className="text-center mt-11">
 
-            <button
-              onClick={() => navigate("/about")}
-              className="inline-flex items-center justify-center border-2 border-blue-700 text-blue-700 hover:bg-blue-700 hover:text-white px-8 py-3.5 rounded-full font-semibold transition-all duration-300"
+            <Link
+              to="/about#mission-vision"
+              className="group inline-flex items-center gap-2 rounded-full border border-blue-600 px-7 py-3.5 font-semibold text-blue-700 hover:bg-blue-600 hover:text-white transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
             >
-              Read More About Our Mission & Vision
-            </button>
+
+              Discover Our Story
+
+              <span className="text-lg transition-transform duration-300 group-hover:translate-x-1">
+                →
+              </span>
+
+            </Link>
 
           </div>
 
         </div>
+
       </section>
 
 
       {/* =====================================================
           PROGRAMS
       ===================================================== */}
-      <section className="w-full overflow-hidden bg-white py-20 md:py-24">
+      <section className="relative w-full overflow-hidden bg-slate-50 py-20 md:py-24">
 
-        <div className="w-full max-w-7xl mx-auto px-6 md:px-10 lg:px-16">
+        <div className="absolute -top-32 left-[-120px] w-96 h-96 rounded-full bg-blue-100/50 blur-3xl pointer-events-none" />
 
-          <div className="text-center max-w-3xl mx-auto mb-14">
+        <div className="absolute -bottom-40 right-[-120px] w-96 h-96 rounded-full bg-blue-100/40 blur-3xl pointer-events-none" />
 
-            <p className="text-blue-700 font-semibold uppercase tracking-[0.2em] text-sm md:text-base">
+
+        <div className="relative max-w-7xl mx-auto px-6 md:px-10">
+
+          <div className="text-center max-w-3xl mx-auto">
+
+            <p className="text-blue-600 font-semibold uppercase tracking-widest text-sm">
               What We Do
             </p>
 
-            <h2 className="mt-3 text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 font-serif">
-              Our Key Programs
+
+            <h2 className="mt-3 text-3xl sm:text-4xl md:text-5xl font-bold text-slate-900 leading-tight">
+              Our Programs
             </h2>
 
-            <div className="h-1 w-20 bg-blue-700 mx-auto mt-5 rounded-full"></div>
 
-            <p className="mt-5 text-gray-800 text-base md:text-lg leading-relaxed">
-              Our programs focus on creating opportunities, protecting
-              vulnerable communities, and helping individuals build a
-              safer and more independent future.
+            <p className="mt-5 text-slate-600 leading-7">
+              Our programs are designed to create practical, sustainable
+              and meaningful opportunities that help individuals and
+              communities move towards safer and more empowered lives.
             </p>
 
           </div>
 
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="mt-12 grid md:grid-cols-3 gap-7">
 
-            {/* EDUCATION */}
-            <Link to="/programs#education" className="group block">
+            {/* Education */}
+            <div
+              className="
+                group
+                premium-card
+                relative
+                bg-white
+                rounded-[2rem]
+                overflow-hidden
+                shadow-sm
+                border
+                border-slate-200
+                transition-all
+                duration-500
+                hover:-translate-y-2
+                hover:shadow-[0_25px_60px_rgba(15,23,42,.15)]
+                hover:border-blue-100
+              "
+            >
 
-              <div className="h-full bg-white rounded-3xl overflow-hidden border border-gray-200 shadow-md transition-all duration-300 hover:-translate-y-2 hover:scale-[1.02] hover:shadow-2xl hover:border-blue-200">
+              <div className="absolute top-0 left-0 z-20 h-1 w-0 bg-blue-600 transition-all duration-500 group-hover:w-full" />
 
-                <div className="relative overflow-hidden">
+              <div className="relative h-64 overflow-hidden">
 
-                  <img
-                    src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=800&q=80"
-                    alt="Education Support"
-                    className="w-full h-56 object-cover transition-transform duration-500 group-hover:scale-105"
-                  />
+                <img
+                  src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=1200&q=80"
+                  alt="Education program"
+                  className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
+                />
 
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/60 via-transparent to-transparent opacity-70" />
 
-                  <span className="absolute bottom-4 left-5 bg-blue-500 text-white px-4 py-1.5 rounded-full text-sm font-semibold">
-                    Education
-                  </span>
-
-                </div>
-
-                <div className="p-7">
-
-                  <h3 className="text-2xl font-bold text-gray-900 font-serif">
-                    Education Support
-                  </h3>
-
-                  <div className="h-1 w-12 bg-blue-700 rounded-full mt-3 mb-4"></div>
-
-                  <p className="text-gray-600 leading-relaxed">
-                    Supporting vulnerable children and girls through
-                    education, learning opportunities, mentoring, and
-                    access to essential educational resources.
-                  </p>
-
-                  <div className="mt-6 text-blue-700 font-semibold group-hover:translate-x-1 transition-transform duration-300">
-                    Learn More →
-                  </div>
-
+                <div className="absolute top-5 left-5 h-11 w-11 rounded-xl bg-white/90 backdrop-blur-sm flex items-center justify-center text-blue-700 font-bold shadow-lg">
+                  01
                 </div>
 
               </div>
-            </Link>
 
 
-            {/* HEALTHCARE */}
-            <Link to="/programs#healthcare" className="group block">
+              <div className="relative z-10 p-7">
 
-              <div className="h-full bg-white rounded-3xl overflow-hidden border border-gray-200 shadow-md transition-all duration-300 hover:-translate-y-2 hover:scale-[1.02] hover:shadow-2xl hover:border-blue-200">
+                <h3 className="text-2xl font-bold text-slate-900">
+                  Education
+                </h3>
 
-                <div className="relative overflow-hidden">
 
-                  <img
-                    src="https://images.unsplash.com/photo-1580281657527-47f249e8f3f6?auto=format&fit=crop&w=800&q=80"
-                    alt="Healthcare Initiatives"
-                    className="w-full h-56 object-cover transition-transform duration-500 group-hover:scale-105"
-                  />
+                <p className="mt-3 text-slate-600 leading-7">
+                  Promoting access to education and helping children build
+                  the confidence and skills they need for a brighter future.
+                </p>
 
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
 
-                  <span className="absolute bottom-4 left-5 bg-blue-500 text-white px-4 py-1.5 rounded-full text-sm font-semibold">
-                    Healthcare
+                <Link
+                  to="/programs/education"
+                  className="group/link inline-flex items-center gap-2 mt-6 font-semibold text-blue-600 hover:text-blue-800"
+                >
+
+                  Learn More
+
+                  <span className="text-lg transition-transform duration-300 group-hover/link:translate-x-1">
+                    →
                   </span>
 
-                </div>
+                </Link>
 
-                <div className="p-7">
+              </div>
 
-                  <h3 className="text-2xl font-bold text-gray-900 font-serif">
-                    Healthcare Initiatives
-                  </h3>
+            </div>
 
-                  <div className="h-1 w-12 bg-blue-700 rounded-full mt-3 mb-4"></div>
 
-                  <p className="text-gray-600 leading-relaxed">
-                    Promoting better health and well-being through
-                    healthcare awareness, medical support, preventive
-                    care, and community health initiatives.
-                  </p>
+            {/* Healthcare */}
+            <div
+              className="
+                group
+                premium-card
+                relative
+                bg-white
+                rounded-[2rem]
+                overflow-hidden
+                shadow-sm
+                border
+                border-slate-200
+                transition-all
+                duration-500
+                hover:-translate-y-2
+                hover:shadow-[0_25px_60px_rgba(15,23,42,.15)]
+                hover:border-blue-100
+              "
+            >
 
-                  <div className="mt-6 text-blue-700 font-semibold group-hover:translate-x-1 transition-transform duration-300">
-                    Learn More →
-                  </div>
+              <div className="absolute top-0 left-0 z-20 h-1 w-0 bg-blue-600 transition-all duration-500 group-hover:w-full" />
 
+              <div className="relative h-64 overflow-hidden">
+
+                <img
+                  src="https://images.unsplash.com/photo-1580281657527-47f249e8f3f6?auto=format&fit=crop&w=1200&q=80"
+                  alt="Healthcare program"
+                  className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
+                />
+
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/60 via-transparent to-transparent opacity-70" />
+
+                <div className="absolute top-5 left-5 h-11 w-11 rounded-xl bg-white/90 backdrop-blur-sm flex items-center justify-center text-blue-700 font-bold shadow-lg">
+                  02
                 </div>
 
               </div>
-            </Link>
 
 
-            {/* SKILL DEVELOPMENT */}
-            <Link to="/programs#skills" className="group block">
+              <div className="relative z-10 p-7">
 
-              <div className="h-full bg-white rounded-3xl overflow-hidden border border-gray-200 shadow-md transition-all duration-300 hover:-translate-y-2 hover:scale-[1.02] hover:shadow-2xl hover:border-blue-200">
+                <h3 className="text-2xl font-bold text-slate-900">
+                  Healthcare
+                </h3>
 
-                <div className="relative overflow-hidden">
 
-                  <img
-                    src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&w=800&q=80"
-                    alt="Skill Development"
-                    className="w-full h-56 object-cover transition-transform duration-500 group-hover:scale-105"
-                  />
+                <p className="mt-3 text-slate-600 leading-7">
+                  Supporting healthcare awareness, medical assistance and
+                  access to essential services.
+                </p>
 
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
 
-                  <span className="absolute bottom-4 left-5 bg-blue-500 text-white px-4 py-1.5 rounded-full text-sm font-semibold">
-                    Empowerment
+                <Link
+                  to="/programs/healthcare"
+                  className="group/link inline-flex items-center gap-2 mt-6 font-semibold text-blue-600 hover:text-blue-800"
+                >
+
+                  Learn More
+
+                  <span className="text-lg transition-transform duration-300 group-hover/link:translate-x-1">
+                    →
                   </span>
 
-                </div>
+                </Link>
 
-                <div className="p-7">
+              </div>
 
-                  <h3 className="text-2xl font-bold text-gray-900 font-serif">
-                    Skill Development
-                  </h3>
+            </div>
 
-                  <div className="h-1 w-12 bg-blue-700 rounded-full mt-3 mb-4"></div>
 
-                  <p className="text-gray-600 leading-relaxed">
-                    Providing vocational training, practical skills,
-                    and livelihood opportunities that help individuals
-                    become confident and financially independent.
-                  </p>
+            {/* Skill Development */}
+            <div
+              className="
+                group
+                premium-card
+                relative
+                bg-white
+                rounded-[2rem]
+                overflow-hidden
+                shadow-sm
+                border
+                border-slate-200
+                transition-all
+                duration-500
+                hover:-translate-y-2
+                hover:shadow-[0_25px_60px_rgba(15,23,42,.15)]
+                hover:border-blue-100
+              "
+            >
 
-                  <div className="mt-6 text-blue-700 font-semibold group-hover:translate-x-1 transition-transform duration-300">
-                    Learn More →
-                  </div>
+              <div className="absolute top-0 left-0 z-20 h-1 w-0 bg-blue-600 transition-all duration-500 group-hover:w-full" />
 
+              <div className="relative h-64 overflow-hidden">
+
+                <img
+                  src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&w=1200&q=80"
+                  alt="Skill development program"
+                  className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
+                />
+
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/60 via-transparent to-transparent opacity-70" />
+
+                <div className="absolute top-5 left-5 h-11 w-11 rounded-xl bg-white/90 backdrop-blur-sm flex items-center justify-center text-blue-700 font-bold shadow-lg">
+                  03
                 </div>
 
               </div>
-            </Link>
+
+
+              <div className="relative z-10 p-7">
+
+                <h3 className="text-2xl font-bold text-slate-900">
+                  Skill Development
+                </h3>
+
+
+                <p className="mt-3 text-slate-600 leading-7">
+                  Building practical skills and livelihood opportunities
+                  that help individuals move towards greater independence.
+                </p>
+
+
+                <Link
+                  to="/programs/skill-development"
+                  className="group/link inline-flex items-center gap-2 mt-6 font-semibold text-blue-600 hover:text-blue-800"
+                >
+
+                  Learn More
+
+                  <span className="text-lg transition-transform duration-300 group-hover/link:translate-x-1">
+                    →
+                  </span>
+
+                </Link>
+
+              </div>
+
+            </div>
 
           </div>
 
 
-          <div className="text-center mt-12">
+          <div className="text-center mt-11">
 
             <Link
               to="/programs"
-              className="inline-flex items-center justify-center bg-blue-600 hover:bg-blue-800 text-white px-8 py-3.5 rounded-full font-semibold transition-all duration-300 hover:scale-105 shadow-md"
+              className="group inline-flex items-center gap-2 rounded-full bg-blue-600 hover:bg-blue-700 px-7 py-3.5 font-semibold text-white transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
             >
-              Explore All Programs →
+
+              Explore All Programs
+
+              <span className="text-lg transition-transform duration-300 group-hover:translate-x-1">
+                →
+              </span>
+
             </Link>
 
           </div>
 
         </div>
+
       </section>
 
 
-      {/* ================= OUR VALUES ================= */}
-<section
-  id="values"
-  className="w-full overflow-hidden bg-blue-50 py-20 md:py-24"
->
-  <div className="w-full max-w-6xl mx-auto px-6 md:px-10">
+      {/* =====================================================
+          OUR VALUES
+      ===================================================== */}
+      <section className="relative w-full bg-white py-20 md:py-24 overflow-hidden">
 
-    {/* Section Heading */}
-    <div className="text-center max-w-3xl mx-auto mb-16">
+        <div className="absolute top-20 left-[-180px] w-[400px] h-[400px] bg-blue-100/40 rounded-full blur-3xl pointer-events-none" />
 
-      <p className="text-blue-700 font-semibold uppercase tracking-[0.25em] text-sm md:text-base">
-        What We Believe
-      </p>
-
-      <h2 className="mt-3 text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 font-serif">
-        Our Core Values
-      </h2>
-
-      <div className="h-1 w-20 bg-blue-700 rounded-full mx-auto mt-5"></div>
-
-      <p className="mt-5 text-gray-600 text-base md:text-lg leading-relaxed">
-        Our values guide every decision we make and every life we touch.
-        They form the foundation of our commitment to dignity, equality,
-        safety and lasting social change.
-      </p>
-
-    </div>
+        <div className="absolute bottom-20 right-[-180px] w-[400px] h-[400px] bg-blue-50/60 rounded-full blur-3xl pointer-events-none" />
 
 
-    {/* ================= VALUES TIMELINE ================= */}
-    <div className="relative max-w-5xl mx-auto">
+        <div className="relative max-w-7xl mx-auto px-6 md:px-10">
 
-      {/* Center Line - Desktop */}
-      <div className="hidden md:block absolute left-1/2 top-0 bottom-0 w-px bg-blue-200 -translate-x-1/2"></div>
+          <div className="text-center max-w-3xl mx-auto">
+
+            <p className="text-blue-600 font-semibold uppercase tracking-[0.22em] text-sm">
+              What Guides Us
+            </p>
 
 
-      {/* ================= VALUE 01 ================= */}
-      <div className="relative grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 items-center mb-12">
+            <h2 className="mt-3 text-3xl sm:text-4xl md:text-5xl font-bold text-slate-900 leading-tight">
+              Our Values
+            </h2>
 
-        {/* Left */}
-        <div className="md:text-right">
 
-          <span className="text-6xl md:text-7xl font-bold text-blue-300 leading-none">
-            01
-          </span>
+            <p className="mt-5 text-slate-600 leading-7 text-base md:text-lg">
+              The principles that shape how we serve, protect and empower communities.
+            </p>
 
-          <h3 className="mt-2 text-2xl md:text-3xl font-bold text-gray-900 font-serif">
-            Compassion & Care
-          </h3>
-
-          <p className="mt-3 text-gray-600 text-base md:text-lg leading-relaxed">
-            We believe every individual deserves empathy, kindness,
-            dignity and genuine support, especially those facing
-            vulnerability and hardship.
-          </p>
-
-        </div>
-
-        {/* Icon */}
-        <div className="hidden md:flex justify-start">
-          <div className="relative z-10 w-16 h-16 rounded-full bg-white border-4 border-blue-100 shadow-md flex items-center justify-center">
-            <HeartHandshake className="w-7 h-7 text-blue-700" />
-          </div>
-        </div>
-
-        {/* Mobile Icon */}
-        <div className="flex md:hidden items-center gap-4">
-          <div className="w-14 h-14 rounded-full bg-blue-700 flex items-center justify-center shrink-0">
-            <HeartHandshake className="w-6 h-6 text-white" />
           </div>
 
-          <span className="text-sm font-bold tracking-widest text-blue-700">
-            VALUE 01
-          </span>
-        </div>
 
-      </div>
+          <div className="relative max-w-5xl mx-auto mt-16">
 
-
-      {/* ================= VALUE 02 ================= */}
-      <div className="relative grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 items-center mb-12">
-
-        {/* Icon */}
-        <div className="hidden md:flex justify-end">
-          <div className="relative z-10 w-16 h-16 rounded-full bg-white border-4 border-blue-100 shadow-md flex items-center justify-center">
-            <ShieldCheck className="w-7 h-7 text-blue-700" />
-          </div>
-        </div>
-
-        {/* Right */}
-        <div>
-
-          <span className="text-6xl md:text-7xl font-bold text-blue-300 leading-none">
-            02
-          </span>
-
-          <h3 className="mt-2 text-2xl md:text-3xl font-bold text-gray-900 font-serif">
-            Safety & Protection
-          </h3>
-
-          <p className="mt-3 text-gray-600 text-base md:text-lg leading-relaxed">
-            We work towards safer environments for children, girls,
-            women and vulnerable communities, protecting them from
-            abuse, exploitation and trafficking.
-          </p>
-
-        </div>
-
-        {/* Mobile Icon */}
-        <div className="flex md:hidden items-center gap-4">
-          <div className="w-14 h-14 rounded-full bg-blue-700 flex items-center justify-center shrink-0">
-            <ShieldCheck className="w-6 h-6 text-white" />
-          </div>
-
-          <span className="text-sm font-bold tracking-widest text-blue-700">
-            VALUE 02
-          </span>
-        </div>
-
-      </div>
+            <div
+              className="
+                absolute
+                left-3
+                md:left-1/2
+                top-0
+                bottom-0
+                w-[2px]
+                bg-gradient-to-b
+                from-blue-200
+                via-blue-500
+                to-blue-100
+                md:-translate-x-1/2
+              "
+            />
 
 
-      {/* ================= VALUE 03 ================= */}
-      <div className="relative grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 items-center mb-12">
+            {values.map((value, index) => (
 
-        {/* Left */}
-        <div className="md:text-right">
+              <div
+                key={value.number}
+                className={`
+                  relative
+                  flex
+                  items-center
+                  mb-9
+                  md:mb-12
+                  ${index % 2 === 0 ? "md:justify-start" : "md:justify-end"}
+                `}
+              >
 
-          <span className="text-6xl md:text-7xl font-bold text-blue-300 leading-none">
-            03
-          </span>
+                <div className="relative z-10 w-full md:w-[46%] pl-10 md:pl-0">
 
-          <h3 className="mt-2 text-2xl md:text-3xl font-bold text-gray-900 font-serif">
-            Empowerment Through Education
-          </h3>
+                  <div className="group premium-card relative overflow-hidden rounded-[2rem] border border-blue-100 bg-gradient-to-br from-white via-white to-blue-50/70 p-6 md:p-7 shadow-sm transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_25px_60px_rgba(15,23,42,.14)] hover:border-blue-200">
 
-          <p className="mt-3 text-gray-600 text-base md:text-lg leading-relaxed">
-            We believe education, skills and meaningful opportunities
-            can help individuals build confidence, independence and
-            a more secure future.
-          </p>
-
-        </div>
-
-        {/* Icon */}
-        <div className="hidden md:flex justify-start">
-          <div className="relative z-10 w-16 h-16 rounded-full bg-white border-4 border-blue-100 shadow-md flex items-center justify-center">
-            <GraduationCap className="w-7 h-7 text-blue-700" />
-          </div>
-        </div>
-
-        {/* Mobile Icon */}
-        <div className="flex md:hidden items-center gap-4">
-          <div className="w-14 h-14 rounded-full bg-blue-700 flex items-center justify-center shrink-0">
-            <GraduationCap className="w-6 h-6 text-white" />
-          </div>
-
-          <span className="text-sm font-bold tracking-widest text-blue-700">
-            VALUE 03
-          </span>
-        </div>
-
-      </div>
+                    <div className="absolute top-0 left-0 h-1 w-0 bg-blue-600 transition-all duration-500 group-hover:w-full" />
 
 
-      {/* ================= VALUE 04 ================= */}
-      <div className="relative grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 items-center mb-12">
+                    <div className="relative z-10 flex items-start justify-between gap-5">
 
-        {/* Icon */}
-        <div className="hidden md:flex justify-end">
-          <div className="relative z-10 w-16 h-16 rounded-full bg-white border-4 border-blue-300 shadow-md flex items-center justify-center">
-            <Users className="w-7 h-7 text-blue-700" />
-          </div>
-        </div>
+                      <div>
 
-        {/* Right */}
-        <div>
+                        <p className="text-xs uppercase tracking-[0.25em] text-blue-600 font-semibold">
+                          Our Value
+                        </p>
 
-          <span className="text-6xl md:text-7xl font-bold text-blue-300 leading-none">
-            04
-          </span>
 
-          <h3 className="mt-2 text-2xl md:text-3xl font-bold text-gray-900 font-serif">
-            Equality & Dignity
-          </h3>
+                        <h3 className="mt-2 text-xl md:text-2xl font-bold text-slate-900">
+                          {value.title}
+                        </h3>
 
-          <p className="mt-3 text-gray-600 text-base md:text-lg leading-relaxed">
-            We promote equality, inclusion and respect for every
-            person, recognizing the importance of human dignity
-            and equal opportunities.
-          </p>
 
-        </div>
+                        <p className="mt-3 text-slate-600 leading-7">
+                          {value.text}
+                        </p>
 
-        {/* Mobile Icon */}
-        <div className="flex md:hidden items-center gap-4">
-          <div className="w-14 h-14 rounded-full bg-blue-700 flex items-center justify-center shrink-0">
-            <Users className="w-6 h-6 text-white" />
+                      </div>
+
+
+                      <span className="shrink-0 text-4xl md:text-5xl font-black text-blue-100 transition-all duration-300 group-hover:text-blue-200">
+                        {value.number}
+                      </span>
+
+                    </div>
+
+                  </div>
+
+                </div>
+
+
+                <div
+                  className="
+                    value-node
+                    absolute
+                    left-3
+                    md:left-1/2
+                    -translate-x-1/2
+                    h-7
+                    w-7
+                    rounded-full
+                    border-4
+                    border-white
+                    bg-blue-600
+                    shadow-[0_0_0_5px_rgba(37,99,235,.12),0_8px_20px_rgba(37,99,235,.25)]
+                    z-20
+                  "
+                />
+
+              </div>
+
+            ))}
+
           </div>
 
-          <span className="text-sm font-bold tracking-widest text-blue-700">
-            VALUE 04
-          </span>
-        </div>
 
-      </div>
+          {/* Our Promise */}
+          <div
+            className="
+              premium-card
+              relative
+              mt-14
+              overflow-hidden
+              rounded-[2rem]
+              bg-gradient-to-br
+              from-blue-950
+              via-blue-900
+              to-slate-900
+              p-9
+              md:p-12
+              text-center
+              text-white
+              shadow-2xl
+              transition-all
+              duration-500
+              hover:-translate-y-1
+              hover:shadow-[0_30px_70px_rgba(15,23,42,.25)]
+            "
+          >
+
+            <div className="absolute -top-24 left-1/2 -translate-x-1/2 w-72 h-72 rounded-full bg-blue-500/20 blur-3xl pointer-events-none" />
 
 
-      {/* ================= VALUE 05 ================= */}
-      <div className="relative grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 items-center">
+            <div className="relative z-10">
 
-        {/* Left */}
-        <div className="md:text-right">
+              <p className="text-blue-300 uppercase tracking-[0.25em] text-sm font-semibold">
+                Our Promise
+              </p>
 
-          <span className="text-6xl md:text-7xl font-bold text-blue-300 leading-none">
-            05
-          </span>
 
-          <h3 className="mt-2 text-2xl md:text-3xl font-bold text-gray-900 font-serif">
-            Community & Lasting Impact
-          </h3>
+              <h3 className="mt-4 text-3xl md:text-4xl font-bold leading-tight">
+                Empowering Lives. Protecting Futures.
+              </h3>
 
-          <p className="mt-3 text-gray-600 text-base md:text-lg leading-relaxed">
-            We believe lasting change becomes possible when people
-            and communities come together with shared responsibility,
-            compassion and collective action.
-          </p>
 
-        </div>
+              <p className="mt-2 text-xl md:text-2xl font-semibold text-white/80">
+                Building Strong Communities.
+              </p>
 
-        {/* Icon */}
-        <div className="hidden md:flex justify-start">
-          <div className="relative z-10 w-16 h-16 rounded-full bg-white border-4 border-blue-100 shadow-md flex items-center justify-center">
-            <HeartHandshake className="w-7 h-7 text-blue-700" />
+            </div>
+
           </div>
+
         </div>
 
-        {/* Mobile Icon */}
-        <div className="flex md:hidden items-center gap-4">
-          <div className="w-14 h-14 rounded-full bg-blue-700 flex items-center justify-center shrink-0">
-            <HeartHandshake className="w-6 h-6 text-white" />
-          </div>
+      </section>
 
-          <span className="text-sm font-bold tracking-widest text-blue-700">
-            VALUE 05
-          </span>
-        </div>
-
-      </div>
-
-    </div>
-
-<div className="mt-20">
-
-  <div className="relative overflow-hidden rounded-3xl bg-blue-100 px-7 py-10 md:px-12 md:py-12 text-center shadow-xl">
-
-    {/* Decorative circles */}
-    <div className="absolute -top-20 -right-20 w-52 h-52 rounded-full bg-white/40"></div>
-    <div className="absolute -bottom-24 -left-20 w-60 h-60 rounded-full bg-white/40"></div>
-
-    <div className="relative z-10">
-
-      {/* Small Heading */}
-      <p className="text-blue-800 uppercase tracking-[0.25em] text-sm font-semibold">
-        Our Promise
-      </p>
-
-      {/* Main Heading */}
-      <h3 className="mt-4 text-2xl md:text-4xl font-bold text-gray-900 font-serif">
-        Empowering Lives. Protecting Futures.
-      </h3>
-
-      {/* Subheading */}
-      <p className="mt-3 text-blue-800 text-lg md:text-xl font-semibold">
-        Building Strong Communities.
-      </p>
-
-      {/* Divider */}
-      <div className="h-1 w-16 bg-blue-700 rounded-full mx-auto mt-6"></div>
-
-      {/* Description */}
-      <p className="mt-6 max-w-2xl mx-auto text-gray-700 text-sm md:text-base leading-relaxed">
-        Together, we can turn compassion into action and create
-        meaningful change that lasts for generations.
-      </p>
-
-    </div>
-  </div>
-
-</div>
-    
-
-  </div>
-</section>
 
       {/* =====================================================
           VOLUNTEER CTA
       ===================================================== */}
-      <section className="w-full overflow-hidden bg-slate-100 py-20 md:py-24 px-6">
+      <section className="relative w-full bg-blue-50 py-20 md:py-24 overflow-hidden">
 
-        <div className="max-w-6xl mx-auto text-center">
+        <div className="absolute -top-32 -left-32 w-80 h-80 rounded-full bg-blue-200/40 blur-3xl pointer-events-none" />
 
-          <p className="text-blue-700 font-semibold uppercase tracking-[0.2em] text-sm md:text-base mb-4">
-            Make a Difference
-          </p>
+        <div className="absolute -bottom-32 -right-32 w-80 h-80 rounded-full bg-blue-200/40 blur-3xl pointer-events-none" />
 
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 font-serif">
-            Become a Volunteer
-          </h2>
 
-          <div className="h-1 w-20 bg-blue-600 rounded-full mx-auto mt-5 mb-7"></div>
+        <div className="relative max-w-5xl mx-auto px-6 md:px-10">
 
-          <p className="max-w-3xl mx-auto text-gray-700 text-base md:text-lg leading-relaxed">
-            Your time, skills, compassion, and support can help us create
-            safer communities, empower vulnerable individuals, and build
-            a better future for children, girls, and women.
-          </p>
+          <div className="text-center">
 
-          <p className="mt-7 text-blue-700 text-xl md:text-2xl font-semibold italic">
-            "Empowering Lives. Protecting Futures. Building Strong Communities."
-          </p>
+            <p className="text-blue-600 font-semibold uppercase tracking-[0.25em] text-sm">
+              Make a Difference
+            </p>
 
-          <div className="mt-9">
 
-            <button
-              onClick={() => navigate("/volunteer")}
-              className="inline-flex items-center justify-center bg-blue-700 hover:bg-blue-800 text-white px-9 py-4 rounded-full font-bold text-lg shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-2xl"
+            <h2 className="mt-3 text-3xl sm:text-4xl md:text-5xl font-bold text-slate-900 leading-tight">
+              Become a Volunteer
+            </h2>
+
+
+            <p className="mt-5 max-w-3xl mx-auto text-slate-600 leading-8 text-base md:text-lg">
+              Your time, skills and compassion can help us reach more people,
+              support more communities and create meaningful change.
+            </p>
+
+
+            <blockquote className="mt-7 max-w-2xl mx-auto text-xl md:text-2xl italic font-semibold text-slate-800 leading-relaxed">
+              “Together, small acts of kindness can create lasting change.”
+            </blockquote>
+
+
+            <div className="w-14 h-px bg-blue-300 mx-auto mt-8" />
+
+
+            <Link
+              to="/volunteer"
+              className="group inline-flex items-center gap-3 mt-8 rounded-full bg-blue-600 hover:bg-blue-700 px-8 py-4 font-semibold text-white shadow-lg shadow-blue-600/20 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
             >
-              Join as a Volunteer →
-            </button>
+
+              Join as a Volunteer
+
+              <span className="text-xl transition-transform duration-300 group-hover:translate-x-1">
+                →
+              </span>
+
+            </Link>
 
           </div>
 
         </div>
+
       </section>
 
 
       {/* =====================================================
           DONATE CTA
       ===================================================== */}
-      <section className="w-full overflow-hidden bg-white py-20 md:py-24 px-6">
+      <section
+        className="
+          relative
+          w-full
+          overflow-hidden
+          bg-gradient-to-br
+          from-slate-950
+          via-blue-950
+          to-slate-950
+          py-20
+          md:py-24
+        "
+      >
 
-        <div className="max-w-6xl mx-auto">
+        {/* Left Ring */}
+        <div
+          className="
+            absolute
+            -left-48
+            -top-24
+            w-[520px]
+            h-[520px]
+            rounded-full
+            border
+            border-blue-500/30
+            shadow-[0_0_100px_rgba(37,99,235,.35)]
+            pointer-events-none
+          "
+        />
 
-          <div className="relative bg-blue-100 rounded-3xl px-6 py-14 md:px-12 md:py-16 text-center overflow-hidden shadow-2xl">
 
-            {/* Decorative circles */}
-            <div className="absolute -top-20 -right-20 w-48 h-48 bg-white/30 rounded-full"></div>
+        <div
+          className="
+            absolute
+            -left-40
+            -top-16
+            w-[360px]
+            h-[360px]
+            rounded-full
+            bg-blue-500/10
+            blur-[80px]
+            pointer-events-none
+          "
+        />
 
-            <div className="absolute -bottom-24 -left-20 w-56 h-56 bg-white/30 rounded-full"></div>
+
+        {/* Right Ring */}
+        <div
+          className="
+            absolute
+            -right-52
+            bottom-[-170px]
+            w-[560px]
+            h-[560px]
+            rounded-full
+            border
+            border-blue-500/25
+            shadow-[0_0_120px_rgba(37,99,235,.35)]
+            pointer-events-none
+          "
+        />
+
+
+        <div
+          className="
+            absolute
+            -right-40
+            bottom-[-100px]
+            w-[380px]
+            h-[380px]
+            rounded-full
+            bg-blue-500/10
+            blur-[80px]
+            pointer-events-none
+          "
+        />
+
+
+        <div className="relative z-10 max-w-6xl mx-auto px-6 md:px-10">
+
+          <div
+            className="
+              group
+              premium-card
+              relative
+              overflow-hidden
+              rounded-[2rem]
+              border
+              border-blue-400/40
+              bg-gradient-to-br
+              from-blue-900
+              via-blue-950
+              to-blue-900
+              px-7
+              py-12
+              md:px-14
+              md:py-16
+              text-center
+              text-white
+              shadow-[0_30px_100px_rgba(0,0,0,.45)]
+              transition-all
+              duration-500
+              hover:border-blue-400/60
+              hover:shadow-[0_30px_100px_rgba(37,99,235,.20)]
+            "
+          >
+
+            <div className="absolute left-1/2 top-[-180px] -translate-x-1/2 w-[500px] h-[500px] rounded-full bg-blue-500/20 blur-[100px] pointer-events-none" />
+
+
+            <div className="absolute left-1/2 bottom-[-220px] -translate-x-1/2 w-[500px] h-[400px] rounded-full bg-blue-400/10 blur-[100px] pointer-events-none" />
+
+
+            <div className="absolute inset-[1px] rounded-[2rem] border border-white/5 pointer-events-none" />
+
 
             <div className="relative z-10">
 
-              <p className="text-blue-800 font-semibold uppercase tracking-[0.2em] text-sm md:text-base mb-4">
-                Support Our Mission
-              </p>
+              <div className="flex items-center justify-center gap-5">
 
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 font-serif leading-tight">
-                Your Support Can Change Lives
-              </h2>
+                <span className="hidden sm:block h-px w-12 bg-blue-400/70" />
 
-              <div className="h-1 w-20 bg-blue-600 rounded-full mx-auto mt-5 mb-7"></div>
-
-              <p className="max-w-3xl mx-auto text-gray-800 text-base md:text-lg leading-relaxed">
-                Every contribution can help create opportunities, protect
-                vulnerable communities, support education, and build a safer
-                and more empowered future.
-              </p>
-
-              <div className="mt-8">
-
-                <p className="text-blue-800 text-lg md:text-xl font-semibold italic">
-                  "Together Against Human Trafficking.
+                <p className="text-blue-300 font-semibold uppercase tracking-[0.25em] text-sm">
+                  Support Our Mission
                 </p>
 
-                <p className="text-blue-800 text-lg md:text-xl font-semibold italic">
-                  Together for Every Girl's Future."
-                </p>
+                <span className="hidden sm:block h-px w-12 bg-blue-400/70" />
 
               </div>
+
+
+              <h2 className="mt-5 text-3xl sm:text-4xl md:text-5xl font-bold leading-tight">
+
+                Your Support Can
+
+                <span className="block text-blue-300">
+                  Change Lives
+                </span>
+
+              </h2>
+
+
+              <p className="mt-6 max-w-3xl mx-auto text-white/75 leading-8 text-base md:text-lg">
+                Every contribution helps us create safer environments, expand
+                opportunities and support vulnerable communities with dignity
+                and compassion.
+              </p>
+
 
               <div className="mt-9">
 
-                <button
-                  onClick={() => navigate("/donate")}
-                  className="inline-flex items-center justify-center bg-blue-700 hover:bg-blue-800 text-white px-10 py-4 rounded-full font-bold text-lg shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-2xl"
-                >
-                  Donate Today →
-                </button>
+                <p className="text-xl md:text-2xl font-bold text-white">
+                  Together Against Human Trafficking.
+                </p>
+
+                <p className="mt-2 text-xl md:text-2xl font-bold text-blue-300">
+                  Together for Every Girl’s Future.
+                </p>
 
               </div>
 
+
+              <div className="flex justify-center mt-9">
+
+                <div className="h-1 w-16 rounded-full bg-blue-400 shadow-[0_0_15px_rgba(96,165,250,.7)]" />
+
+              </div>
+
+
+              <Link
+                to="/donate"
+                className="
+                  group/button
+                  inline-flex
+                  items-center
+                  justify-center
+                  gap-4
+                  mt-9
+                  min-w-[210px]
+                  rounded-full
+                  bg-gradient-to-r
+                  from-blue-500
+                  to-blue-600
+                  hover:from-blue-400
+                  hover:to-blue-500
+                  px-9
+                  py-4
+                  text-base
+                  md:text-lg
+                  font-bold
+                  text-white
+                  border
+                  border-blue-300/30
+                  shadow-[0_12px_35px_rgba(37,99,235,.40)]
+                  transition-all
+                  duration-300
+                  hover:-translate-y-1
+                  hover:shadow-[0_18px_50px_rgba(37,99,235,.55)]
+                "
+              >
+
+                Donate Today
+
+                <span className="text-2xl leading-none transition-transform duration-300 group-hover/button:translate-x-1">
+                  →
+                </span>
+
+              </Link>
+
+
+              <p className="mt-5 text-sm text-white/50">
+                Every contribution, big or small, helps create meaningful change.
+              </p>
+
             </div>
+
           </div>
 
         </div>
+
       </section>
+
+       {/* ================= CHATBOT ================= */}
+      <Chatbot />
 
     </main>
   );

@@ -1,3 +1,4 @@
+
 import React from "react";
 import { Link } from "react-router-dom";
 import {
@@ -11,11 +12,11 @@ import {
   ChevronRight,
 } from "lucide-react";
 
-import logo from "../assets/logo.png";
+import logo from "../assets/logo1.jpeg";
 
 const Footer = () => {
   return (
-    <footer className="bg-black text-white">
+    <footer className="relative z-[200] bg-black text-white">
 
       {/* =====================================================
           TOP CTA SECTION
@@ -36,7 +37,6 @@ const Footer = () => {
               </div>
             </div>
 
-
             {/* ================= CTA TEXT ================= */}
             <div className="flex-1 text-center lg:text-left">
 
@@ -54,7 +54,6 @@ const Footer = () => {
               </p>
 
             </div>
-
 
             {/* ================= BUTTONS ================= */}
             <div className="flex flex-col sm:flex-row lg:flex-col xl:flex-row gap-3 shrink-0">
@@ -93,14 +92,12 @@ const Footer = () => {
         </div>
       </div>
 
-
       {/* =====================================================
           MAIN FOOTER
       ===================================================== */}
       <div className="max-w-7xl mx-auto px-5 sm:px-6 lg:px-10 py-12 md:py-14">
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-8">
-
 
           {/* =================================================
               COLUMN 1 — ABOUT
@@ -123,7 +120,6 @@ const Footer = () => {
             <p className="mt-5 text-blue-400 font-serif italic text-lg font-semibold">
               Hope Begins Where Fear Ends.
             </p>
-
 
             {/* Social Icons */}
             <div className="flex items-center gap-3 mt-7">
@@ -164,7 +160,6 @@ const Footer = () => {
 
           </div>
 
-
           {/* =================================================
               COLUMN 2 — QUICK LINKS
           ================================================= */}
@@ -178,6 +173,7 @@ const Footer = () => {
 
             <div className="space-y-4">
 
+              {/* Home */}
               <Link
                 to="/"
                 className="flex items-center gap-2 text-gray-400 hover:text-blue-400 transition-colors"
@@ -186,6 +182,7 @@ const Footer = () => {
                 Home
               </Link>
 
+              {/* About */}
               <Link
                 to="/about"
                 className="flex items-center gap-2 text-gray-400 hover:text-blue-400 transition-colors"
@@ -194,22 +191,25 @@ const Footer = () => {
                 About Us
               </Link>
 
+              {/* Our Founder */}
               <Link
-                to="our-team"
+                to="/our-team"
                 className="flex items-center gap-2 text-gray-400 hover:text-blue-400 transition-colors"
               >
                 <ChevronRight size={17} className="text-blue-500" />
                 Our Founder
               </Link>
 
+              {/* Our Team */}
               <Link
-                to="/#founder"
+                to="/our-team"
                 className="flex items-center gap-2 text-gray-400 hover:text-blue-400 transition-colors"
               >
                 <ChevronRight size={17} className="text-blue-500" />
                 Our Team
               </Link>
 
+              {/* Programs */}
               <Link
                 to="/programs"
                 className="flex items-center gap-2 text-gray-400 hover:text-blue-400 transition-colors"
@@ -218,6 +218,7 @@ const Footer = () => {
                 Our Programs
               </Link>
 
+              {/* Contact */}
               <Link
                 to="/contact"
                 className="flex items-center gap-2 text-gray-400 hover:text-blue-400 transition-colors"
@@ -229,7 +230,6 @@ const Footer = () => {
             </div>
 
           </div>
-
 
           {/* =================================================
               COLUMN 3 — PROGRAMS
@@ -244,40 +244,43 @@ const Footer = () => {
 
             <div className="space-y-4">
 
+              {/* Education */}
               <Link
-                to="/programs#education"
+                to="/programs/education"
                 className="flex items-center gap-2 text-gray-400 hover:text-blue-400 transition-colors"
               >
                 <ChevronRight size={17} className="text-blue-500" />
                 Education
               </Link>
 
+              {/* Healthcare */}
               <Link
-                to="/programs#healthcare"
+                to="/programs/healthcare"
                 className="flex items-center gap-2 text-gray-400 hover:text-blue-400 transition-colors"
               >
                 <ChevronRight size={17} className="text-blue-500" />
                 Healthcare
               </Link>
 
+              {/* Skill Development */}
               <Link
-                to="/programs#skills"
+                to="/programs/skill-development"
                 className="flex items-center gap-2 text-gray-400 hover:text-blue-400 transition-colors"
               >
                 <ChevronRight size={17} className="text-blue-500" />
                 Skill Development
               </Link>
 
+              {/* All Programs */}
               <Link
                 to="/programs"
                 className="flex items-center gap-2 text-gray-400 hover:text-blue-400 transition-colors"
               >
                 <ChevronRight size={17} className="text-blue-500" />
-                Community Support
+                All Programs
               </Link>
 
             </div>
-
 
             <Link
               to="/programs"
@@ -287,7 +290,6 @@ const Footer = () => {
             </Link>
 
           </div>
-
 
           {/* =================================================
               COLUMN 4 — GET INVOLVED + CONTACT
@@ -302,6 +304,7 @@ const Footer = () => {
 
             <div className="space-y-4">
 
+              {/* Volunteer */}
               <Link
                 to="/volunteer"
                 className="flex items-center gap-2 text-gray-400 hover:text-blue-400 transition-colors"
@@ -310,6 +313,7 @@ const Footer = () => {
                 Become a Volunteer
               </Link>
 
+              {/* Donate */}
               <Link
                 to="/donate"
                 className="flex items-center gap-2 text-gray-400 hover:text-blue-400 transition-colors"
@@ -318,6 +322,7 @@ const Footer = () => {
                 Donate Now
               </Link>
 
+              {/* Partner */}
               <Link
                 to="/contact"
                 className="flex items-center gap-2 text-gray-400 hover:text-blue-400 transition-colors"
@@ -326,6 +331,7 @@ const Footer = () => {
                 Partner With Us
               </Link>
 
+              {/* Contact */}
               <Link
                 to="/contact"
                 className="flex items-center gap-2 text-gray-400 hover:text-blue-400 transition-colors"
@@ -336,7 +342,6 @@ const Footer = () => {
 
             </div>
 
-
             {/* CONTACT */}
             <h3 className="text-2xl font-bold font-serif text-white mt-10">
               Contact Us
@@ -346,6 +351,7 @@ const Footer = () => {
 
             <div className="space-y-4">
 
+              {/* Address */}
               <div className="flex items-start gap-3">
                 <MapPin
                   size={30}
@@ -357,7 +363,7 @@ const Footer = () => {
                 </p>
               </div>
 
-
+              {/* Phone */}
               <div className="flex items-center gap-3">
                 <Phone
                   size={30}
@@ -369,7 +375,7 @@ const Footer = () => {
                 </p>
               </div>
 
-
+              {/* Email */}
               <div className="flex items-center gap-3">
                 <Mail
                   size={30}
@@ -388,7 +394,6 @@ const Footer = () => {
         </div>
 
       </div>
-
 
       {/* =====================================================
           BOTTOM COPYRIGHT
